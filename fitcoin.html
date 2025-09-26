@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FitCoin Economy - SpotnPlay</title>
+    <meta name="description" content="Earn FitCoins for fitness activities and redeem for Swadeshi products. Gamified fitness economy supporting Indian startups.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="assets/js/theme.js" defer></script>
+</head>
+<body>
+    <!-- Header / Navigation -->
+    <header class="site-header" id="top">
+        <div class="container header-inner">
+            <a href="index.html" class="logo" aria-label="SpotnPlay Home">
+                <span class="logo-mark" aria-hidden="true">S</span>
+                <span class="logo-text">SpotnPlay</span>
+            </a>
+            <nav class="nav" aria-label="Primary">
+                <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">☰</button>
+                <ul id="nav-menu" class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#features">Features</a></li>
+                    <li><a href="index.html#experience">Experience</a></li>
+                    <li><a href="index.html#testimonials">Testimonials</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><a href="registration.html">Registration</a></li>
+                    <li id="nav-auth"></li>
+                    <li><a href="signup.html">Sign up</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-inner">
+            <div class="hero-copy">
+                <p class="eyebrow">GAMIFIED FITNESS</p>
+                <h1>EARN-TO-FIT MODEL</h1>
+                <p class="sub">Transform your fitness journey into a rewarding experience with FitCoins</p>
+                <div class="cta-row">
+                    <a class="btn primary" href="#how-it-works">How It Works</a>
+                    <a class="btn ghost" href="#marketplace">Browse Marketplace</a>
+                </div>
+                <div class="stats-row">
+                    <div class="stat-item your-fitcoins">
+                        <div class="fitcoin-info">
+                            <span class="coin-icon">🪙</span>
+                            <span id="hero-fitcoin-amount" class="stat-number">0</span>
+                        </div>
+                        <span class="stat-label">Your FitCoins</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">10-30</span>
+                        <span class="stat-label">FitCoins per Activity</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Swadeshi Products</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">1000+</span>
+                        <span class="stat-label">Active Users</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-art" aria-hidden="true">
+                <div class="fitcoin-visual">
+                    <div class="coin-animation">🪙</div>
+                    <div class="activity-icons">
+                        <span class="activity-icon">💪</span>
+                        <span class="activity-icon">🏃</span>
+                        <span class="activity-icon">🧘</span>
+                        <span class="activity-icon">⚽</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="section">
+        <div class="container">
+            <h2>How FitCoin Works</h2>
+            <p class="sub" style="color:var(--muted);margin-bottom:32px;text-align:center">Simple steps to start earning and redeeming</p>
+            
+            <div class="steps-grid">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Complete Activities</h3>
+                        <p>Work out, play sports, join challenges, or achieve fitness milestones</p>
+                        <div class="step-icons">
+                            <span class="step-icon">💪</span>
+                            <span class="step-icon">🏃</span>
+                            <span class="step-icon">🧘</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Earn FitCoins</h3>
+                        <p>Get 10-30 FitCoins per activity based on intensity and type</p>
+                        <div class="step-icons">
+                            <span class="step-icon">🪙</span>
+                            <span class="step-icon">⭐</span>
+                            <span class="step-icon">🔥</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Redeem Rewards</h3>
+                        <p>Use FitCoins for discounts on authentic Indian products</p>
+                        <div class="step-icons">
+                            <span class="step-icon">🛒</span>
+                            <span class="step-icon">🇮🇳</span>
+                            <span class="step-icon">💎</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Activity Tracking Section -->
+    <section class="section alt">
+        <div class="container">
+            <h2>Track Your Activities</h2>
+            <p class="sub" style="color:var(--muted);margin-bottom:24px;text-align:center">Log activities and earn FitCoins instantly</p>
+            
+            <!-- Activity Logging Form -->
+            <div class="activity-logger">
+                <h3>Log New Activity</h3>
+                <div class="activity-form">
+                    <div class="form-group">
+                        <label>Activity Type</label>
+                        <select id="activity-type">
+                            <option value="workout">💪 Workout</option>
+                            <option value="cardio">🏃 Cardio</option>
+                            <option value="strength">🏋️ Strength Training</option>
+                            <option value="yoga">🧘 Yoga</option>
+                            <option value="sports">⚽ Sports</option>
+                            <option value="challenge">🎯 Challenge</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Duration (minutes)</label>
+                        <input type="number" id="activity-duration" placeholder="30" min="1" max="300">
+                    </div>
+                    <div class="form-group">
+                        <label>Intensity</label>
+                        <select id="activity-intensity">
+                            <option value="1">Low</option>
+                            <option value="1.2" selected>Medium</option>
+                            <option value="1.5">High</option>
+                            <option value="2">Very High</option>
+                        </select>
+                    </div>
+                    <button class="btn primary" onclick="logActivity()">Log Activity</button>
+                </div>
+            </div>
+            
+            <!-- Demo Activities -->
+            <div id="demo-activities"></div>
+            
+            <!-- Activity History -->
+            <div class="activity-history">
+                <h3>Recent Activities</h3>
+                <div id="activity-history-list" class="history-list">
+                    <!-- Activity history will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marketplace Section -->
+    <section id="marketplace" class="section">
+        <div class="container">
+            <h2>Swadeshi Marketplace</h2>
+            <p class="sub" style="color:var(--muted);margin-bottom:24px;text-align:center">Support Indian startups with your FitCoins</p>
+            
+            <div class="marketplace-filters">
+                <button class="filter-btn active" data-category="all">All Products</button>
+                <button class="filter-btn" data-category="nutrition">Nutrition</button>
+                <button class="filter-btn" data-category="equipment">Equipment</button>
+                <button class="filter-btn" data-category="apparel">Apparel</button>
+                <button class="filter-btn" data-category="wellness">Wellness</button>
+            </div>
+            
+            <div id="marketplace-container"></div>
+        </div>
+    </section>
+
+    <!-- Leaderboard Section -->
+    <section class="section alt">
+        <div class="container">
+            <h2>Bharat Fitness Leaderboard</h2>
+            <p class="sub" style="color:var(--muted);margin-bottom:24px;text-align:center">Compete with fellow fitness enthusiasts</p>
+            
+            <div id="leaderboard-container"></div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section class="section">
+        <div class="container">
+            <h2>Your Achievements</h2>
+            <p class="sub" style="color:var(--muted);margin-bottom:24px;text-align:center">Unlock milestones and earn bonus rewards</p>
+            
+            <div id="achievements-container"></div>
+        </div>
+    </section>
+
+    <!-- Points History Section -->
+    <section class="section alt">
+        <div class="container">
+            <h2>FitCoin Transaction History</h2>
+            <p class="sub" style="color:var(--muted);margin-bottom:24px;text-align:center">Track all your earnings and redemptions</p>
+            
+            <div class="transaction-filters">
+                <button class="filter-btn active" data-type="all">All Transactions</button>
+                <button class="filter-btn" data-type="earned">Earned</button>
+                <button class="filter-btn" data-type="redeemed">Redeemed</button>
+            </div>
+            
+            <div id="transaction-history" class="transaction-list">
+                <!-- Transaction history will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <span class="logo-mark">S</span>
+                    <span class="logo-text">SpotnPlay</span>
+                </a>
+                <p>Reimagining sports and healthcare with analytics, AI and machine learning.</p>
+                <div class="social">
+                    <a href="#" aria-label="Instagram">Instagram</a>
+                    <a href="#" aria-label="Facebook">Facebook</a>
+                    <a href="#" aria-label="X / Twitter">X</a>
+                    <a href="#" aria-label="LinkedIn">LinkedIn</a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>FitCoin Economy</h3>
+                <ul>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#marketplace">Marketplace</a></li>
+                    <li><a href="#leaderboard">Leaderboard</a></li>
+                    <li><a href="#achievements">Achievements</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container legal">
+            <p>© 2025 SpotnPlay. All rights reserved.</p>
+            <a href="#">Privacy Policy</a>
+        </div>
+    </footer>
+
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/fitcoin.js"></script>
+    <script src="assets/js/script.js"></script>
+    
+    <script>
+    // Initialize FitCoin system
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize the system
+        if (typeof fitcoinSystem !== 'undefined') {
+            fitcoinSystem.init();
+            
+            // Update hero FitCoin display
+            const heroFitcoinAmount = document.getElementById('hero-fitcoin-amount');
+            if (heroFitcoinAmount) {
+                heroFitcoinAmount.textContent = fitcoinSystem.getCurrentBalance() || '0';
+            }
+            
+            // Render activity history
+            renderActivityHistory();
+            
+            // Render transaction history
+            renderTransactionHistory();
+            
+            // Setup marketplace filters
+            setupMarketplaceFilters();
+            
+            // Setup transaction filters
+            setupTransactionFilters();
+        }
+    });
+    
+    function renderActivityHistory() {
+        const container = document.getElementById('activity-history-list');
+        if (!container) return;
+        
+        // Sample activity history
+        const activities = [
+            { type: 'workout', description: 'Strength Training', points: 12, time: '2 hours ago' },
+            { type: 'cardio', description: 'Morning Run', points: 15, time: '1 day ago' },
+            { type: 'yoga', description: 'Evening Yoga', points: 8, time: '2 days ago' },
+            { type: 'sports', description: 'Football Match', points: 20, time: '3 days ago' },
+            { type: 'challenge', description: '30-Day Challenge', points: 25, time: '1 week ago' }
+        ];
+        
+        container.innerHTML = activities.map(activity => `
+            <div class="history-item">
+                <div class="activity-icon">${getActivityIcon(activity.type)}</div>
+                <div class="activity-details">
+                    <h4>${activity.description}</h4>
+                    <p>${activity.time}</p>
+                </div>
+                <div class="activity-points">+${activity.points} FitCoins</div>
+            </div>
+        `).join('');
+    }
+    
+    function renderTransactionHistory() {
+        const container = document.getElementById('transaction-history');
+        if (!container) return;
+        
+        // Use actual transaction history from FitCoin system
+        const transactions = fitcoinSystem.transactionHistory || [];
+        
+        if (transactions.length === 0) {
+            container.innerHTML = '<p class="no-transactions">No transactions yet. Start earning FitCoins!</p>';
+            return;
+        }
+        
+        container.innerHTML = transactions.map(transaction => `
+            <div class="transaction-item">
+                <div class="transaction-icon">${transaction.type === 'earned' ? '➕' : '➖'}</div>
+                <div class="transaction-details">
+                    <h4>${transaction.description}</h4>
+                    <p>${new Date(transaction.timestamp).toLocaleDateString()}</p>
+                </div>
+                <div class="transaction-points ${transaction.type === 'earned' ? 'earned' : 'redeemed'}">
+                    ${transaction.type === 'earned' ? '+' : ''}${transaction.points} FitCoins
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    function setupMarketplaceFilters() {
+        const filterBtns = document.querySelectorAll('.marketplace-filters .filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Filter marketplace items (this would be implemented in the FitCoin system)
+                const category = this.dataset.category;
+                // For now, just re-render the marketplace
+                fitcoinSystem.renderMarketplace();
+            });
+        });
+    }
+    
+    function setupTransactionFilters() {
+        const filterBtns = document.querySelectorAll('.transaction-filters .filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Filter transactions
+                const type = this.dataset.type;
+                renderTransactionHistory();
+            });
+        });
+    }
+    
+    function getActivityIcon(type) {
+        const icons = {
+            'workout': '💪',
+            'cardio': '🏃',
+            'strength': '🏋️',
+            'yoga': '🧘',
+            'sports': '⚽',
+            'challenge': '🎯'
+        };
+        return icons[type] || '💪';
+    }
+    
+    function logActivity() {
+        const activityType = document.getElementById('activity-type').value;
+        const duration = parseInt(document.getElementById('activity-duration').value) || 30;
+        const intensity = parseFloat(document.getElementById('activity-intensity').value) || 1.2;
+        
+        if (!activityType) {
+            fitcoinSystem.showNotification('Please select an activity type!', 'error');
+            return;
+        }
+        
+        // Calculate points based on duration and intensity
+        const basePoints = fitcoinSystem.activityMultipliers[activityType] || 10;
+        const durationMultiplier = Math.min(duration / 30, 2); // Max 2x for duration
+        const totalPoints = Math.floor(basePoints * intensity * durationMultiplier);
+        
+        // Award points
+        const pointsEarned = fitcoinSystem.awardPoints(
+            activityType, 
+            `${activityType.charAt(0).toUpperCase() + activityType.slice(1)} for ${duration} minutes`,
+            intensity
+        );
+        
+        // Show success message
+        fitcoinSystem.showNotification(
+            `Great job! You earned ${pointsEarned} FitCoins for ${duration} minutes of ${activityType}!`, 
+            'success'
+        );
+        
+        // Clear form
+        document.getElementById('activity-duration').value = '';
+        document.getElementById('activity-intensity').value = '1.2';
+        
+        // Refresh displays
+        renderActivityHistory();
+        renderTransactionHistory();
+    }
+    </script>
+</body>
+</html>

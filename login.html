@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SpotnPlay - Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="assets/js/theme.js" defer></script>
+</head>
+<body>
+    <header class="site-header" id="top">
+        <div class="container header-inner">
+            <a href="index.html" class="logo" aria-label="SpotnPlay Home">
+                <span class="logo-mark" aria-hidden="true">S</span>
+                <span class="logo-text">SpotnPlay</span>
+            </a>
+            <nav class="nav" aria-label="Primary">
+                <a class="btn" href="signup.html">Sign up</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="section">
+        <div class="container" style="max-width:520px">
+            <h1>Welcome back</h1>
+            <p class="sub" style="color:var(--muted)">Log in to continue to SpotnPlay.</p>
+            <form id="loginForm" class="contact-form" aria-label="Login">
+                <label>
+                    <span>Email</span>
+                    <input required type="email" name="email" placeholder="you@example.com">
+                </label>
+                <label>
+                    <span>Password</span>
+                    <input required type="password" name="password" placeholder="Your password">
+                </label>
+                <button type="submit" class="btn primary" style="width:100%">Login</button>
+            </form>
+            <p style="margin-top:12px;color:var(--muted)">Don't have an account? <a href="signup.html" style="color:#a0e9ff">Create one</a></p>
+        </div>
+    </main>
+
+    <script src="assets/js/auth.js"></script>
+    <script>
+    (function(){
+        var form = document.getElementById('loginForm');
+        form.addEventListener('submit', function(e){
+            e.preventDefault();
+            var data = new FormData(form);
+            var email = (data.get('email')||'').trim();
+            var password = (data.get('password')||'');
+            try{
+                window.SpotnPlayAuth.signIn(email, password);
+                window.location.href = 'index.html';
+            }catch(err){
+                alert(err.message || 'Login failed');
+            }
+        });
+    })();
+    </script>
+</body>
+</html>
+
+
+

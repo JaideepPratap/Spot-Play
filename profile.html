@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SpotnPlay - My Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="assets/js/theme.js" defer></script>
+    <style>
+    .profile-card {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: 24px;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 24px;
+        margin-bottom: 24px;
+        transition: all 0.3s ease;
+    }
+    .avatar{width:200px;height:200px;border-radius:12px;background:#10141f;display:grid;place-items:center;overflow:hidden;border:1px solid var(--border);position:relative}
+    .avatar img{width:100%;height:100%;object-fit:cover}
+    .avatar-upload{position:absolute;bottom:8px;right:8px;background:var(--brand-solid);color:#0b0d10;border:none;border-radius:50%;width:32px;height:32px;display:grid;place-items:center;cursor:pointer;font-size:14px}
+    .avatar-picker{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+    .avatar-picker button{border:1px solid var(--border);background:#0d1118;border-radius:10px;padding:6px 10px;color:var(--text);font-size:12px}
+    .chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);padding:6px 10px;border-radius:999px;background:#0e131d;color:var(--muted)}
+    .doc-list{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .doc{border:1px solid var(--border);border-radius:10px;padding:6px 10px;background:#0e131d}
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+    .stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center}
+    .stat-number{font-size:2rem;font-weight:800;color:var(--accent);margin-bottom:4px}
+    .stat-label{color:var(--muted);font-size:0.9rem}
+    .sports-section{margin-bottom:24px}
+    .sports-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+    .sport-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px}
+    .sport-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+    .sport-icon{width:40px;height:40px;border-radius:8px;background:var(--brand);display:grid;place-items:center;font-size:20px;color:var(--bg)}
+    .sport-name{font-weight:600;color:var(--text)}
+    .sport-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+    .sport-stat{text-align:center;padding:8px;background:var(--panel);border-radius:8px;transition:all 0.2s ease}
+    .sport-stat:hover{background:var(--panel-2)}
+    .sport-stat-value{font-weight:700;color:var(--accent);font-size:1.1rem}
+    .sport-stat-label{color:var(--muted);font-size:0.8rem}
+    .active-status{display:inline-flex;align-items:center;gap:6px;background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:0.9rem;transition:all 0.2s ease}
+    .active-status:hover{border-color:var(--accent)}
+    .status-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+    .matches-section{margin-bottom:24px}
+    .matches-list{display:flex;flex-direction:column;gap:12px}
+    .match-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;display:flex;align-items:center;gap:12px;transition:all 0.2s ease}
+    .match-item:hover{transform:translateY(-2px);border-color:var(--accent)}
+
+    @keyframes pulse {
+        0% { opacity: 1; }
+        50% { opacity: 0.5; }
+        100% { opacity: 1; }
+    }
+    .match-result{font-weight:700;padding:4px 8px;border-radius:6px;font-size:0.9rem;transition:all 0.2s ease}
+    .match-result.win{background:var(--accent);color:var(--bg)}
+    .match-result.loss{background:#f43f5e;color:var(--bg)}
+    .match-result.draw{background:var(--muted);color:var(--text)}
+    
+    /* Stats card hover effects */
+    .stat-card {
+        transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+        transform: translateY(-3px);
+        border-color: var(--accent);
+    }
+    
+    /* Section titles */
+    h2 {
+        color: var(--text);
+        margin-bottom: 1.5rem;
+    }
+    
+    /* Card transitions */
+    .profile-card, .stat-card, .sport-card, .match-item {
+        transition: all 0.3s ease;
+    }
+    
+    .profile-card:hover, .sport-card:hover {
+        transform: translateY(-3px);
+        border-color: var(--accent);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    }
+    .theme-toggle-container{display:flex;align-items:center;gap:12px}
+    .theme-toggle{position:relative;display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:25px;padding:4px;cursor:pointer;transition:all 0.3s ease}
+    .theme-option{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:transparent;color:var(--muted);font-size:14px;transition:all 0.3s ease;cursor:pointer}
+    .theme-option.active{background:var(--brand);color:#0b0d10;font-weight:600}
+    .theme-label{font-size:0.9rem;color:var(--muted);font-weight:500}
+    </style>
+</head>
+<body>
+    <header class="site-header" id="top">
+        <div class="container header-inner">
+            <a href="index.html" class="logo" aria-label="SpotnPlay Home">
+                <span class="logo-mark" aria-hidden="true">S</span>
+                <span class="logo-text">SpotnPlay</span>
+            </a>
+            <nav class="nav" aria-label="Primary">
+                <a class="btn" href="registration.html">Edit Registration</a>
+                <label class="theme-switch">
+                    <input type="checkbox" id="themeToggle">
+                    <span class="slider">
+                        <span class="slider-icon light">☀️</span>
+                        <span class="slider-icon dark">🌙</span>
+                    </span>
+                </label>
+                <button id="logoutBtn" class="btn">Logout</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="section">
+        <div class="container" style="max-width:980px">
+            <h1>My Profile</h1>
+            
+            <!-- Profile Overview -->
+            <div class="profile-card">
+                <div>
+                    <div class="avatar" id="avatarBox">
+                        <span>Avatar</span>
+                        <button class="avatar-upload" id="avatarUploadBtn" title="Upload Photo">📷</button>
+                    </div>
+                    <div class="avatar-picker">
+                        <button data-avatar="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face">Male 1</button>
+                        <button data-avatar="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&h=300&fit=crop&crop=face">Female 1</button>
+                        <button data-avatar="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face">Male 2</button>
+                        <button data-avatar="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face">Female 2</button>
+                    </div>
+                </div>
+                <div>
+                    <div id="summary"></div>
+                    <div class="active-status" style="margin-top:12px">
+                        <div class="status-dot"></div>
+                        <span>Active now</span>
+                    </div>
+                    <div id="details" style="margin-top:12px;color:var(--muted)"></div>
+                    <div id="documents" class="doc-list"></div>
+                </div>
+            </div>
+
+            <!-- Stats Overview -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalMatches">0</div>
+                    <div class="stat-label">Total Matches</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="winRate">0%</div>
+                    <div class="stat-label">Win Rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="currentStreak">0</div>
+                    <div class="stat-label">Current Streak</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="fitcoins">0</div>
+                    <div class="stat-label">FitCoins Earned</div>
+                </div>
+            </div>
+
+            <!-- Sports Performance -->
+            <div class="sports-section">
+                <h2>Sports Performance</h2>
+                <div class="sports-grid" id="sportsGrid">
+                    <!-- Sports will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Recent Matches -->
+            <div class="matches-section">
+                <h2>Recent Matches</h2>
+                <div class="matches-list" id="matchesList">
+                    <!-- Matches will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="assets/js/auth.js"></script>
+    <script>
+    (function(){
+        window.SpotnPlayAuth.requireAuth('login.html');
+        var session = window.SpotnPlayAuth.getSession();
+        
+        // Sample data for demonstration
+        var userStats = {
+            totalMatches: 47,
+            wins: 32,
+            losses: 12,
+            draws: 3,
+            currentStreak: 5,
+            fitcoins: 1250
+        };
+
+        var sportsData = [
+            { name: 'Football', icon: '⚽', skill: 'Advanced', matches: 15, wins: 10, losses: 4, draws: 1 },
+            { name: 'Tennis', icon: '🎾', skill: 'Intermediate', matches: 12, wins: 8, losses: 3, draws: 1 },
+            { name: 'Basketball', icon: '🏀', skill: 'Beginner', matches: 8, wins: 3, losses: 4, draws: 1 },
+            { name: 'Cricket', icon: '🏏', skill: 'Professional', matches: 12, wins: 11, losses: 1, draws: 0 }
+        ];
+
+        var recentMatches = [
+            { sport: 'Football', opponent: 'Alex Johnson', result: 'win', score: '3-1', date: '2 days ago' },
+            { sport: 'Tennis', opponent: 'Sarah Wilson', result: 'loss', score: '2-6, 4-6', date: '3 days ago' },
+            { sport: 'Basketball', opponent: 'Mike Chen', result: 'win', score: '21-18', date: '5 days ago' },
+            { sport: 'Cricket', opponent: 'Priya Sharma', result: 'win', score: '120-95', date: '1 week ago' },
+            { sport: 'Football', opponent: 'David Brown', result: 'draw', score: '2-2', date: '1 week ago' }
+        ];
+
+        function render(){
+            session = window.SpotnPlayAuth.getSession();
+            var prof = (session && session.profile) || {};
+            var regType = prof.registrationType || 'N/A';
+            var title = (session.fullName || 'User') + ' — ' + regType.charAt(0).toUpperCase()+regType.slice(1) + ' profile';
+            document.getElementById('summary').innerHTML = '<div class="chip"><strong>'+title+'</strong></div>';
+            
+            var info = prof.quick || prof.complete || {};
+            var html = '';
+            Object.keys(info).forEach(function(k){
+                if(k === 'photoUrl' || k === 'certificates') return;
+                if(String(info[k]).trim() === '') return;
+                html += '<div>'+k+': <strong style="color:#e9eef5">'+info[k]+'</strong></div>';
+            });
+            document.getElementById('details').innerHTML = html || 'No details yet. Use Edit Registration.';
+            
+            // Update avatar
+            var box = document.getElementById('avatarBox');
+            box.innerHTML = '<span>Avatar</span><button class="avatar-upload" id="avatarUploadBtn" title="Upload Photo">📷</button>';
+            var imgUrl = prof.avatarUrl || (prof.complete && prof.complete.photoUrl) || '';
+            if(imgUrl){ 
+                var img=document.createElement('img'); 
+                img.src=imgUrl; 
+                img.alt='Avatar'; 
+                box.insertBefore(img, box.firstChild);
+            }
+
+            // Update documents
+            var docs = document.getElementById('documents');
+            docs.innerHTML = '';
+            var certs = (prof.complete && prof.complete.certificates) || [];
+            certs.forEach(function(url, i){
+                var a = document.createElement('a'); 
+                a.href = url; 
+                a.target = '_blank'; 
+                a.className='doc'; 
+                a.textContent = 'Certificate '+(i+1);
+                docs.appendChild(a);
+            });
+
+            // Update stats
+            document.getElementById('totalMatches').textContent = userStats.totalMatches;
+            document.getElementById('winRate').textContent = Math.round((userStats.wins / userStats.totalMatches) * 100) + '%';
+            document.getElementById('currentStreak').textContent = userStats.currentStreak;
+            document.getElementById('fitcoins').textContent = userStats.fitcoins;
+
+            // Render sports performance
+            renderSports();
+            
+            // Render recent matches
+            renderMatches();
+        }
+
+        function renderSports() {
+            var container = document.getElementById('sportsGrid');
+            container.innerHTML = sportsData.map(function(sport) {
+                var winRate = Math.round((sport.wins / sport.matches) * 100);
+                return '<div class="sport-card">' +
+                    '<div class="sport-header">' +
+                        '<div class="sport-icon">' + sport.icon + '</div>' +
+                        '<div class="sport-name">' + sport.name + '</div>' +
+                    '</div>' +
+                    '<div style="color:var(--muted);font-size:0.9rem;margin-bottom:8px">Skill Level: <strong style="color:var(--accent)">' + sport.skill + '</strong></div>' +
+                    '<div class="sport-stats">' +
+                        '<div class="sport-stat">' +
+                            '<div class="sport-stat-value">' + sport.matches + '</div>' +
+                            '<div class="sport-stat-label">Matches</div>' +
+                        '</div>' +
+                        '<div class="sport-stat">' +
+                            '<div class="sport-stat-value">' + winRate + '%</div>' +
+                            '<div class="sport-stat-label">Win Rate</div>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>';
+            }).join('');
+        }
+
+        function renderMatches() {
+            var container = document.getElementById('matchesList');
+            container.innerHTML = recentMatches.map(function(match) {
+                return '<div class="match-item">' +
+                    '<div class="match-result ' + match.result + '">' + match.result.toUpperCase() + '</div>' +
+                    '<div style="flex:1">' +
+                        '<div style="font-weight:600;color:var(--text)">vs ' + match.opponent + '</div>' +
+                        '<div style="color:var(--muted);font-size:0.9rem">' + match.sport + ' • ' + match.score + '</div>' +
+                    '</div>' +
+                    '<div style="color:var(--muted);font-size:0.9rem">' + match.date + '</div>' +
+                '</div>';
+            }).join('');
+        }
+
+        render();
+
+        // Avatar picker functionality
+        document.querySelectorAll('.avatar-picker button').forEach(function(btn){
+            btn.addEventListener('click', function(){
+                var url = btn.getAttribute('data-avatar');
+                window.SpotnPlayAuth.updateUser(session.email, { profile: Object.assign({}, session.profile, { avatarUrl: url }) });
+                render();
+            });
+        });
+
+        // Avatar upload functionality
+        document.getElementById('avatarUploadBtn').addEventListener('click', function(){
+            var input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = function(e) {
+                var file = e.target.files[0];
+                if (file) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        window.SpotnPlayAuth.updateUser(session.email, { profile: Object.assign({}, session.profile, { avatarUrl: e.target.result }) });
+                        render();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+            input.click();
+        });
+
+        // Theme toggle functionality already handled by theme.js
+
+        document.getElementById('logoutBtn').addEventListener('click', function(){ 
+            window.SpotnPlayAuth.signOut(); 
+            window.location.href='index.html'; 
+        });
+    })();
+    </script>
+</body>
+</html>
+
+
+

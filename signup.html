@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SpotnPlay - Sign up</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="assets/js/theme.js" defer></script>
+</head>
+<body>
+    <header class="site-header" id="top">
+        <div class="container header-inner">
+            <a href="index.html" class="logo" aria-label="SpotnPlay Home">
+                <span class="logo-mark" aria-hidden="true">S</span>
+                <span class="logo-text">SpotnPlay</span>
+            </a>
+            <nav class="nav" aria-label="Primary">
+                <a class="btn" href="login.html">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="section">
+        <div class="container" style="max-width:640px">
+            <h1>Create your account</h1>
+            <p class="sub" style="color:var(--muted)">Sign up once, use the same details to log in.</p>
+            <form id="signupForm" class="contact-form" aria-label="Sign up">
+                <div class="grid">
+                    <label>
+                        <span>Full Name</span>
+                        <input required type="text" name="fullName" placeholder="Alex Morgan">
+                    </label>
+                    <label>
+                        <span>Email</span>
+                        <input required type="email" name="email" placeholder="you@example.com">
+                    </label>
+                </div>
+                <div class="grid">
+                    <label>
+                        <span>Password</span>
+                        <input required type="password" name="password" placeholder="Create password">
+                    </label>
+                    <label>
+                        <span>Confirm Password</span>
+                        <input required type="password" name="confirm" placeholder="Repeat password">
+                    </label>
+                </div>
+                <button type="submit" class="btn primary" style="width:100%">Create account</button>
+            </form>
+            <p style="margin-top:12px;color:var(--muted)">Already have an account? <a href="login.html" style="color:#a0e9ff">Login</a></p>
+        </div>
+    </main>
+
+    <script src="assets/js/auth.js"></script>
+    <script>
+    (function(){
+        var form = document.getElementById('signupForm');
+        form.addEventListener('submit', function(e){
+            e.preventDefault();
+            var data = new FormData(form);
+            var fullName = (data.get('fullName')||'').trim();
+            var email = (data.get('email')||'').trim();
+            var password = (data.get('password')||'');
+            var confirm = (data.get('confirm')||'');
+            if(password !== confirm){ alert('Passwords do not match'); return; }
+            try{
+                window.SpotnPlayAuth.createUser({
+                    fullName: fullName,
+                    email: email,
+                    password: password,
+                    profile: {
+                        registrationType: null,
+                        avatarUrl: '',
+                        quick: null,
+                        complete: null,
+                    }
+                });
+                alert('Account created. Please log in.');
+                window.location.href = 'login.html';
+            }catch(err){
+                alert(err.message || 'Could not create account');
+            }
+        });
+    })();
+    </script>
+</body>
+</html>
+
+
+

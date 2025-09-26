@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Hub - SpotnPlay</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+        /* Content Hub specific styles */
+        .content-filters {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .tag {
+            background: var(--panel);
+            color: var(--muted);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tag:hover {
+            background: var(--brand-solid);
+            color: var(--bg);
+        }
+
+        .tag.active {
+            background: var(--brand-solid);
+            color: var(--bg);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .content-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .content-image {
+            height: 200px;
+            background: var(--panel);
+            position: relative;
+        }
+
+        .content-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .content-badges {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .content-meta {
+            padding: 16px;
+        }
+
+        .interaction-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .interaction-buttons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .interaction-btn {
+            background: none;
+            border: none;
+            color: var(--muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .interaction-btn:hover {
+            color: var(--accent);
+            background: var(--panel);
+        }
+
+        .share-menu {
+            position: absolute;
+            bottom: 100%;
+            right: 0;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 8px;
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 150px;
+        }
+
+        .share-menu.active {
+            display: flex;
+        }
+
+        .share-option {
+            padding: 8px 12px;
+            color: var(--muted);
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .share-option:hover {
+            background: var(--panel);
+            color: var(--text);
+        }
+
+        .trainer-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: var(--panel);
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .trainer-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--brand);
+            display: grid;
+            place-items: center;
+        }
+
+        .comments-section {
+            margin-top: 24px;
+        }
+
+        .comment {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .rating {
+            display: flex;
+            gap: 4px;
+            color: var(--accent);
+        }
+
+        .poll-card {
+            background: var(--panel);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .poll-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .poll-option {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .poll-option:hover {
+            border-color: var(--accent);
+        }
+
+        .poll-progress {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background: var(--brand);
+            opacity: 0.1;
+            transition: width 0.3s ease;
+        }
+
+        .search-bar {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 24px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1em;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+        }
+
+        .sort-dropdown {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: var(--text);
+        }
+
+        .leaderboard {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .leaderboard-item:last-child {
+            border-bottom: none;
+        }
+
+        .rank {
+            width: 24px;
+            height: 24px;
+            background: var(--panel);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-weight: 600;
+        }
+
+        .featured-trainer {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .trainer-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 16px 0;
+        }
+
+        .stat-box {
+            background: var(--panel);
+            border-radius: 8px;
+            padding: 12px;
+        }
+
+        .video-player {
+            width: 100%;
+            border-radius: 14px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .video-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <span class="logo-mark">S</span>
+                <span class="logo-text">SpotnPlay</span>
+            </a>
+            <nav class="nav">
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#" class="active">Content Hub</a></li>
+                    <li><a href="create-content.html">Create</a></li>
+                    <li><a href="#saved">Saved</a></li>
+                    <li id="nav-auth"></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="section">
+        <div class="container">
+            <!-- FitBlog/FitVlogs Heading -->
+            <div style="text-align: center; margin-bottom: 48px;">
+                <h1 style="font-size: 3.5em; font-weight: 800; background: var(--brand); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 16px; display: flex; align-items: center; justify-content: center; gap: 20px;">
+                    🏋️‍♂️ FitBlog & FitVlogs ❤️
+                </h1>
+                <p style="color: var(--accent); font-size: 1.4em; display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 16px;">
+                    <span>✨</span>
+                    <span>Your Ultimate Fitness Content Hub</span>
+                    <span>✨</span>
+                </p>
+                <p style="color: var(--muted); font-size: 1.1em; max-width: 600px; margin: 0 auto; line-height: 1.6; display: flex; align-items: center; justify-content: center; gap: 12px;">
+                    <span>Share your journey 🏃‍♂️</span>
+                    <span>•</span>
+                    <span>Inspire others 💪</span>
+                    <span>•</span>
+                    <span>Learn from experts 🎯</span>
+                </p>
+            </div>
+
+            <!-- Search and Filters -->
+            <div class="search-bar">
+                <input type="text" placeholder="Search content...">
+                <select class="sort-dropdown">
+                    <option value="latest">Latest</option>
+                    <option value="popular">Most Popular</option>
+                    <option value="trending">Trending</option>
+                </select>
+            </div>
+
+            <!-- Content Filters -->
+            <div class="content-filters">
+                <div class="filter-group">
+                    <span>Type:</span>
+                    <span class="tag active">All</span>
+                    <span class="tag">Blogs</span>
+                    <span class="tag">Videos</span>
+                    <span class="tag">Plans</span>
+                </div>
+                <div class="filter-group">
+                    <span>Category:</span>
+                    <span class="tag">Yoga</span>
+                    <span class="tag">Strength</span>
+                    <span class="tag">Cardio</span>
+                    <span class="tag">Nutrition</span>
+                </div>
+            </div>
+
+            <!-- Two Column Layout -->
+            <div style="display:grid;grid-template-columns:1fr 300px;gap:24px">
+                <!-- Main Content -->
+                <div>
+                    <!-- Featured Content -->
+                    <h2>Featured Content</h2>
+                    <div class="content-grid">
+                        <!-- Content Cards will be dynamically added here -->
+                    </div>
+
+                    <!-- Latest Content -->
+                    <h2 style="margin-top:40px">Latest Posts</h2>
+                    <div class="content-grid">
+                        <!-- Content Cards will be dynamically added here -->
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div>
+                    <!-- Featured Trainer -->
+                    <div class="featured-trainer">
+                        <div style="width:80px;height:80px;border-radius:50%;background:var(--brand);margin:0 auto 16px;display:grid;place-items:center;font-size:32px">
+                            👤
+                        </div>
+                        <h3 style="margin:0 0 8px">Sarah Wilson</h3>
+                        <div style="color:var(--muted)">Featured Trainer of the Week</div>
+                        
+                        <div class="trainer-stats">
+                            <div class="stat-box">
+                                <div style="font-size:1.5em;font-weight:600">24</div>
+                                <div style="color:var(--muted);font-size:0.9em">Posts</div>
+                            </div>
+                            <div class="stat-box">
+                                <div style="font-size:1.5em;font-weight:600">4.9</div>
+                                <div style="color:var(--muted);font-size:0.9em">Rating</div>
+                            </div>
+                            <div class="stat-box">
+                                <div style="font-size:1.5em;font-weight:600">1.2k</div>
+                                <div style="color:var(--muted);font-size:0.9em">Followers</div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn primary" style="width:100%;margin-top:16px">Follow</button>
+                    </div>
+
+                    <!-- Trending Topics -->
+                    <div class="card">
+                        <h3 style="margin:0 0 16px">Trending Topics</h3>
+                        <div style="display:flex;flex-wrap:wrap;gap:8px">
+                            <span class="tag">#MorningYoga</span>
+                            <span class="tag">#HIIT</span>
+                            <span class="tag">#MealPrep</span>
+                            <span class="tag">#CoreWorkout</span>
+                            <span class="tag">#RunningTips</span>
+                        </div>
+                    </div>
+
+                    <!-- Top Contributors -->
+                    <div class="leaderboard" style="margin-top:24px">
+                        <h3 style="margin:0 0 16px">Top Contributors</h3>
+                        <div class="leaderboard-item">
+                            <div class="rank">1</div>
+                            <div style="flex:1">
+                                <div>Mike Chen</div>
+                                <div style="color:var(--muted);font-size:0.9em">🪙 2,450 FitCoins</div>
+                            </div>
+                        </div>
+                        <div class="leaderboard-item">
+                            <div class="rank">2</div>
+                            <div style="flex:1">
+                                <div>Priya Sharma</div>
+                                <div style="color:var(--muted);font-size:0.9em">🪙 2,180 FitCoins</div>
+                            </div>
+                        </div>
+                        <div class="leaderboard-item">
+                            <div class="rank">3</div>
+                            <div style="flex:1">
+                                <div>David Kim</div>
+                                <div style="color:var(--muted);font-size:0.9em">🪙 1,950 FitCoins</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Active Poll -->
+                    <div class="poll-card">
+                        <h3 style="margin:0 0 12px">Weekly Poll</h3>
+                        <div style="color:var(--muted);margin-bottom:16px">What workout would you like to see next?</div>
+                        <div class="poll-options">
+                            <div class="poll-option">
+                                <div class="poll-progress" style="width:45%"></div>
+                                <div style="position:relative">Home HIIT Workout (45%)</div>
+                            </div>
+                            <div class="poll-option">
+                                <div class="poll-progress" style="width:30%"></div>
+                                <div style="position:relative">Yoga Flow (30%)</div>
+                            </div>
+                            <div class="poll-option">
+                                <div class="poll-progress" style="width:25%"></div>
+                                <div style="position:relative">Strength Training (25%)</div>
+                            </div>
+                        </div>
+                        <div style="color:var(--muted);font-size:0.9em;margin-top:12px">
+                            824 votes • 2 days left
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="assets/js/theme.js"></script>
+    <script>
+        // Sample content data with expanded properties
+        const content = [
+            {
+                id: 1,
+                type: 'blog',
+                title: 'Ultimate HIIT Workout Guide',
+                excerpt: 'Master high-intensity interval training with this comprehensive guide...',
+                content: 'Full content of the HIIT workout guide...',
+                image: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd',
+                author: {
+                    id: 'sarah123',
+                    name: 'Sarah Wilson',
+                    role: 'Fitness Expert',
+                    avatar: '👤',
+                    followers: 1200,
+                    isFollowed: false
+                },
+                stats: {
+                    views: 2400,
+                    likes: 328,
+                    comments: 42,
+                    isLiked: false,
+                    isSaved: false
+                },
+                tags: ['HIIT', 'Workout', 'Fitness'],
+                comments: []
+            },
+            // Add more content items here
+        ];
+
+        // Initialize local storage for user interactions
+        function initializeStorage() {
+            if (!localStorage.getItem('fitblog_likes')) {
+                localStorage.setItem('fitblog_likes', JSON.stringify({}));
+            }
+            if (!localStorage.getItem('fitblog_saves')) {
+                localStorage.setItem('fitblog_saves', JSON.stringify([]));
+            }
+            if (!localStorage.getItem('fitblog_following')) {
+                localStorage.setItem('fitblog_following', JSON.stringify([]));
+            }
+        }
+
+        // Handle like functionality
+        function toggleLike(contentId) {
+            const likes = JSON.parse(localStorage.getItem('fitblog_likes'));
+            const content = findContent(contentId);
+            
+            if (likes[contentId]) {
+                delete likes[contentId];
+                content.stats.likes--;
+                content.stats.isLiked = false;
+            } else {
+                likes[contentId] = true;
+                content.stats.likes++;
+                content.stats.isLiked = true;
+            }
+            
+            localStorage.setItem('fitblog_likes', JSON.stringify(likes));
+            renderContent(); // Update the UI
+        }
+
+        // Handle save functionality
+        function toggleSave(contentId) {
+            const saves = JSON.parse(localStorage.getItem('fitblog_saves'));
+            const content = findContent(contentId);
+            
+            if (saves.includes(contentId)) {
+                const index = saves.indexOf(contentId);
+                saves.splice(index, 1);
+                content.stats.isSaved = false;
+            } else {
+                saves.push(contentId);
+                content.stats.isSaved = true;
+                
+                // Create blob and trigger download
+                const blob = new Blob([JSON.stringify(content, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${content.title.toLowerCase().replace(/\s+/g, '-')}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+            
+            localStorage.setItem('fitblog_saves', JSON.stringify(saves));
+            renderContent(); // Update the UI
+        }
+
+        // Handle follow functionality
+        function toggleFollow(authorId) {
+            const following = JSON.parse(localStorage.getItem('fitblog_following'));
+            const content = content.find(item => item.author.id === authorId);
+            
+            if (following.includes(authorId)) {
+                const index = following.indexOf(authorId);
+                following.splice(index, 1);
+                content.author.isFollowed = false;
+                content.author.followers--;
+            } else {
+                following.push(authorId);
+                content.author.isFollowed = true;
+                content.author.followers++;
+            }
+            
+            localStorage.setItem('fitblog_following', JSON.stringify(following));
+            renderContent(); // Update the UI
+        }
+
+        // Handle comment functionality
+        function addComment(contentId) {
+            const commentText = prompt('Add your comment:');
+            if (commentText && commentText.trim()) {
+                const content = findContent(contentId);
+                content.comments.push({
+                    id: Date.now(),
+                    text: commentText,
+                    author: 'Current User',
+                    date: new Date().toISOString()
+                });
+                content.stats.comments++;
+                renderContent(); // Update the UI
+            }
+        }
+
+        // Helper function to find content by ID
+        function findContent(id) {
+            return content.find(item => item.id === id);
+        }
+
+        // Share functionality
+        function shareContent(contentId, platform) {
+            const content = findContent(contentId);
+            const text = `Check out this amazing fitness content: ${content.title}`;
+            const url = window.location.href + '#content-' + contentId;
+            
+            const shareUrls = {
+                whatsapp: `https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`,
+                twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`,
+                linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
+                instagram: `https://instagram.com` // Opens Instagram (story sharing needs app integration)
+            };
+            
+            window.open(shareUrls[platform], '_blank');
+        }
+
+        // Enhanced render function
+        function renderContent() {
+            const grid = document.querySelector('.content-grid');
+            grid.innerHTML = content.map(item => `
+                <div class="content-card" id="content-${item.id}">
+                    <div class="content-image">
+                        <img src="${item.image}" alt="${item.title}">
+                        <div class="content-badges">
+                            <span class="tag">${item.type}</span>
+                            ${item.tags.map(tag => `<span class="tag">#${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                    <div class="content-meta">
+                        <h3>${item.title}</h3>
+                        <p style="color:var(--muted)">${item.excerpt}</p>
+                        <div class="trainer-card">
+                            <div class="trainer-avatar">${item.author.avatar}</div>
+                            <div style="flex:1">
+                                <div>${item.author.name}</div>
+                                <div style="color:var(--muted);font-size:0.9em">${item.author.role}</div>
+                            </div>
+                            <button 
+                                onclick="toggleFollow('${item.author.id}')"
+                                class="btn ${item.author.isFollowed ? 'ghost' : 'primary'} small"
+                            >
+                                ${item.author.isFollowed ? 'Following' : 'Follow'}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="interaction-bar">
+                        <div class="interaction-buttons">
+                            <button 
+                                onclick="toggleLike(${item.id})" 
+                                class="interaction-btn ${item.stats.isLiked ? 'active' : ''}"
+                            >
+                                ${item.stats.isLiked ? '❤️' : '🤍'} ${item.stats.likes}
+                            </button>
+                            <button 
+                                onclick="addComment(${item.id})" 
+                                class="interaction-btn"
+                            >
+                                💬 ${item.stats.comments}
+                            </button>
+                            <button 
+                                onclick="toggleSave(${item.id})" 
+                                class="interaction-btn ${item.stats.isSaved ? 'active' : ''}"
+                            >
+                                ${item.stats.isSaved ? '📚' : '🔖'} Save
+                            </button>
+                        </div>
+                        <div style="position:relative">
+                            <button class="interaction-btn" onclick="toggleShare(${item.id})">📤 Share</button>
+                            <div class="share-menu" id="share-${item.id}">
+                                <a href="#" onclick="shareContent(${item.id}, 'whatsapp')" class="share-option">📱 WhatsApp</a>
+                                <a href="#" onclick="shareContent(${item.id}, 'twitter')" class="share-option">🐦 Twitter</a>
+                                <a href="#" onclick="shareContent(${item.id}, 'instagram')" class="share-option">📷 Instagram</a>
+                                <a href="#" onclick="shareContent(${item.id}, 'linkedin')" class="share-option">💼 LinkedIn</a>
+                            </div>
+                        </div>
+                    </div>
+                    ${item.comments.length > 0 ? `
+                        <div class="comments-section">
+                            <h4>Comments (${item.comments.length})</h4>
+                            ${item.comments.map(comment => `
+                                <div class="comment">
+                                    <div class="comment-header">
+                                        <strong>${comment.author}</strong>
+                                        <span style="color:var(--muted)">${new Date(comment.date).toLocaleDateString()}</span>
+                                    </div>
+                                    <p>${comment.text}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        function toggleShare(id) {
+            const menu = document.getElementById(`share-${id}`);
+            menu.classList.toggle('active');
+        }
+
+        // Close share menus when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.interaction-btn')) {
+                document.querySelectorAll('.share-menu').forEach(menu => {
+                    menu.classList.remove('active');
+                });
+            }
+        });
+
+        // Initialize storage and content
+        initializeStorage();
+        renderContent();
+
+        // Filter functionality
+        document.querySelectorAll('.tag').forEach(tag => {
+            tag.addEventListener('click', () => {
+                // Remove active class from siblings
+                tag.parentElement.querySelectorAll('.tag').forEach(t => {
+                    t.classList.remove('active');
+                });
+                // Add active class to clicked tag
+                tag.classList.add('active');
+                
+                // Get selected filters
+                const typeFilter = document.querySelector('.filter-group:first-child .tag.active').textContent.toLowerCase();
+                const categoryFilter = document.querySelector('.filter-group:last-child .tag.active')?.textContent.toLowerCase();
+
+                // Filter content
+                const filteredContent = content.filter(item => {
+                    if (typeFilter === 'all') return true;
+                    if (typeFilter === item.type.toLowerCase()) return true;
+                    return item.tags.some(tag => tag.toLowerCase() === typeFilter);
+                });
+
+                // Update content grid
+                renderContent(filteredContent);
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.querySelector('.search-bar input');
+        const sortDropdown = document.querySelector('.sort-dropdown');
+
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            const filteredContent = content.filter(item => 
+                item.title.toLowerCase().includes(searchTerm) ||
+                item.excerpt.toLowerCase().includes(searchTerm) ||
+                item.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+            );
+            renderContent(filteredContent);
+        });
+
+        sortDropdown.addEventListener('change', () => {
+            const sortBy = sortDropdown.value;
+            const sortedContent = [...content].sort((a, b) => {
+                switch(sortBy) {
+                    case 'latest':
+                        return b.id - a.id;
+                    case 'popular':
+                        return b.stats.views - a.stats.views;
+                    case 'trending':
+                        return (b.stats.likes + b.stats.comments) - (a.stats.likes + a.stats.comments);
+                    default:
+                        return 0;
+                }
+            });
+            renderContent(sortedContent);
+        });
+
+        // Close share menus when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.interaction-btn')) {
+                document.querySelectorAll('.share-menu').forEach(menu => {
+                    menu.classList.remove('active');
+                });
+            }
+        });
+
+        // Add active styles for interaction buttons
+        document.head.insertAdjacentHTML('beforeend', `
+            <style>
+                .interaction-btn.active {
+                    color: var(--accent) !important;
+                    background: var(--panel);
+                }
+                .trainer-card {
+                    position: relative;
+                }
+                .trainer-card .btn {
+                    position: absolute;
+                    right: 12px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+                .comments-section {
+                    padding: 16px;
+                    border-top: 1px solid var(--border);
+                }
+                .comment {
+                    padding: 12px;
+                    border-bottom: 1px solid var(--border);
+                    margin-bottom: 12px;
+                }
+                .comment:last-child {
+                    border-bottom: none;
+                    margin-bottom: 0;
+                }
+            </style>
+        `);
+    </script>
+</body>
+</html>

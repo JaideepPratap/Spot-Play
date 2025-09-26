@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Sports Grounds - SpotnPlay</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+        /* Map container styles */
+        #mapContainer {
+            height: 60vh;
+            min-height: 400px;
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        /* Controls panel */
+        .controls-panel {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .search-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        /* Form styles */
+        .ground-form {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--card);
+            padding: 20px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            width: 90%;
+            max-width: 400px;
+            z-index: 1000;
+        }
+
+        .ground-form h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .form-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+
+        /* Ground list styles */
+        .grounds-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .ground-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 15px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .ground-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .ground-card h4 {
+            margin: 0 0 10px 0;
+            color: var(--text);
+        }
+
+        .ground-info {
+            color: var(--muted);
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        /* Range slider styles */
+        .range-slider {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .range-value {
+            color: var(--muted);
+            font-size: 0.9em;
+            text-align: right;
+        }
+
+        /* Form input styles */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--muted);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--panel);
+            color: var(--text);
+        }
+
+        /* Button styles */
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header" id="top">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <span class="logo-mark">S</span>
+                <span class="logo-text">SpotnPlay</span>
+            </a>
+            <nav class="nav">
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#" class="active">Find Grounds</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="section">
+        <div class="container">
+            <div class="section-head">
+                <h1>Find Sports Grounds</h1>
+                <p class="sub">Discover and register community sports grounds in your area</p>
+            </div>
+
+            <!-- Controls Panel -->
+            <div class="controls-panel">
+                <div class="search-controls">
+                    <div class="form-group">
+                        <label for="searchInput">Search Grounds</label>
+                        <input type="text" id="searchInput" placeholder="Search by name or sport type">
+                    </div>
+                    <div class="form-group">
+                        <label for="sportFilter">Sport Type</label>
+                        <select id="sportFilter">
+                            <option value="">All Sports</option>
+                            <option value="Football">Football</option>
+                            <option value="Cricket">Cricket</option>
+                            <option value="Basketball">Basketball</option>
+                            <option value="Tennis">Tennis</option>
+                            <option value="Badminton">Badminton</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Distance Range: <span id="rangeValue">25</span> km</label>
+                        <input type="range" id="distanceRange" min="1" max="50" value="25" class="range-slider">
+                    </div>
+                </div>
+                <button id="useLocationBtn" class="btn primary">📍 Use My Location</button>
+            </div>
+
+            <!-- Map Container -->
+            <div id="mapContainer"></div>
+
+            <!-- Ground Registration Form -->
+            <div class="form-overlay" id="formOverlay"></div>
+            <form class="ground-form" id="groundForm">
+                <h3>Register New Ground</h3>
+                <div class="form-group">
+                    <label for="groundName">Ground Name</label>
+                    <input type="text" id="groundName" required>
+                </div>
+                <div class="form-group">
+                    <label for="sportType">Sport Type</label>
+                    <select id="sportType" required>
+                        <option value="">Select Sport</option>
+                        <option value="Football">Football</option>
+                        <option value="Cricket">Cricket</option>
+                        <option value="Basketball">Basketball</option>
+                        <option value="Tennis">Tennis</option>
+                        <option value="Badminton">Badminton</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="availability">Availability</label>
+                    <select id="availability" required>
+                        <option value="Always Open">Always Open</option>
+                        <option value="Weekends Only">Weekends Only</option>
+                        <option value="Evenings Only">Evenings Only</option>
+                        <option value="By Appointment">By Appointment</option>
+                    </select>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn ghost" id="cancelBtn">Cancel</button>
+                    <button type="submit" class="btn primary">Register Ground</button>
+                </div>
+            </form>
+
+            <!-- Grounds List -->
+            <div class="grounds-list" id="groundsList"></div>
+        </div>
+    </main>
+
+    <script src="assets/js/theme.js"></script>
+    <script>
+        // Replace with your actual API key
+        const GOOGLE_MAPS_API_KEY = 'YOUR_API_KEY';
+
+        // Load Google Maps API
+        function loadGoogleMapsAPI() {
+            const script = document.createElement('script');
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places&callback=initMap`;
+            script.async = true;
+            script.defer = true;
+            document.head.appendChild(script);
+        }
+
+        // Global variables
+        let map;
+        let userLocation;
+        let markers = [];
+        let grounds = [
+            // Sample data
+            {
+                id: 1,
+                name: "Central Park Ground",
+                sport: "Football",
+                availability: "Always Open",
+                position: { lat: 28.6139, lng: 77.2090 },
+            },
+            {
+                id: 2,
+                name: "Sports Complex",
+                sport: "Cricket",
+                availability: "Weekends Only",
+                position: { lat: 28.6229, lng: 77.2190 },
+            }
+        ];
+
+        // Initialize map
+        function initMap() {
+            // Default location (Delhi)
+            const defaultLocation = { lat: 28.6139, lng: 77.2090 };
+
+            // Create map
+            map = new google.maps.Map(document.getElementById('mapContainer'), {
+                zoom: 12,
+                center: defaultLocation,
+                styles: getMapStyles(),
+            });
+
+            // Try to get user's location
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        userLocation = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                        map.setCenter(userLocation);
+                        showUserLocation();
+                        loadGrounds();
+                    },
+                    () => {
+                        userLocation = defaultLocation;
+                        loadGrounds();
+                    }
+                );
+            } else {
+                userLocation = defaultLocation;
+                loadGrounds();
+            }
+
+            // Add click listener to map
+            map.addListener('click', (e) => {
+                showGroundForm(e.latLng);
+            });
+
+            // Initialize UI elements
+            initializeUI();
+        }
+
+        // Show user's location on map
+        function showUserLocation() {
+            if (userLocation) {
+                new google.maps.Marker({
+                    position: userLocation,
+                    map: map,
+                    icon: {
+                        path: google.maps.SymbolPath.CIRCLE,
+                        scale: 10,
+                        fillColor: "#4285F4",
+                        fillOpacity: 1,
+                        strokeColor: "white",
+                        strokeWeight: 2,
+                    },
+                    title: "Your Location"
+                });
+            }
+        }
+
+        // Load and display grounds
+        function loadGrounds() {
+            clearMarkers();
+            grounds.forEach(ground => {
+                addGroundMarker(ground);
+            });
+            updateGroundsList();
+        }
+
+        // Add marker for a ground
+        function addGroundMarker(ground) {
+            const marker = new google.maps.Marker({
+                position: ground.position,
+                map: map,
+                title: ground.name
+            });
+
+            const infoWindow = new google.maps.InfoWindow({
+                content: createInfoWindowContent(ground)
+            });
+
+            marker.addListener('click', () => {
+                infoWindow.open(map, marker);
+            });
+
+            markers.push({ marker, ground });
+        }
+
+        // Clear all markers
+        function clearMarkers() {
+            markers.forEach(({ marker }) => marker.setMap(null));
+            markers = [];
+        }
+
+        // Create info window content
+        function createInfoWindowContent(ground) {
+            return `
+                <div style="padding: 10px;">
+                    <h3 style="margin: 0 0 5px 0;">${ground.name}</h3>
+                    <p style="margin: 0 0 5px 0;"><strong>Sport:</strong> ${ground.sport}</p>
+                    <p style="margin: 0;"><strong>Availability:</strong> ${ground.availability}</p>
+                </div>
+            `;
+        }
+
+        // Show ground registration form
+        function showGroundForm(latLng) {
+            const form = document.getElementById('groundForm');
+            const overlay = document.getElementById('formOverlay');
+            
+            form.dataset.lat = latLng.lat();
+            form.dataset.lng = latLng.lng();
+            
+            form.style.display = 'block';
+            overlay.style.display = 'block';
+        }
+
+        // Initialize UI elements
+        function initializeUI() {
+            // Form submission
+            document.getElementById('groundForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                registerGround();
+            });
+
+            // Cancel button
+            document.getElementById('cancelBtn').addEventListener('click', hideGroundForm);
+
+            // Search input
+            document.getElementById('searchInput').addEventListener('input', filterGrounds);
+
+            // Sport filter
+            document.getElementById('sportFilter').addEventListener('change', filterGrounds);
+
+            // Distance range
+            document.getElementById('distanceRange').addEventListener('input', (e) => {
+                document.getElementById('rangeValue').textContent = e.target.value;
+                filterGrounds();
+            });
+
+            // Use location button
+            document.getElementById('useLocationBtn').addEventListener('click', () => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                            userLocation = {
+                                lat: position.coords.latitude,
+                                lng: position.coords.longitude
+                            };
+                            map.setCenter(userLocation);
+                            showUserLocation();
+                            filterGrounds();
+                        },
+                        () => alert('Unable to get your location')
+                    );
+                }
+            });
+
+            // Form overlay
+            document.getElementById('formOverlay').addEventListener('click', hideGroundForm);
+        }
+
+        // Register new ground
+        function registerGround() {
+            const form = document.getElementById('groundForm');
+            const newGround = {
+                id: grounds.length + 1,
+                name: document.getElementById('groundName').value,
+                sport: document.getElementById('sportType').value,
+                availability: document.getElementById('availability').value,
+                position: {
+                    lat: parseFloat(form.dataset.lat),
+                    lng: parseFloat(form.dataset.lng)
+                }
+            };
+
+            grounds.push(newGround);
+            addGroundMarker(newGround);
+            updateGroundsList();
+            hideGroundForm();
+            form.reset();
+        }
+
+        // Hide ground form
+        function hideGroundForm() {
+            document.getElementById('groundForm').style.display = 'none';
+            document.getElementById('formOverlay').style.display = 'none';
+        }
+
+        // Update grounds list
+        function updateGroundsList() {
+            const listContainer = document.getElementById('groundsList');
+            const filteredGrounds = filterGroundsList();
+            
+            listContainer.innerHTML = filteredGrounds.map(ground => {
+                const distance = userLocation ? 
+                    calculateDistance(userLocation, ground.position) : null;
+                
+                return `
+                    <div class="ground-card" onclick="focusGround(${ground.id})">
+                        <h4>${ground.name}</h4>
+                        <div class="ground-info">🎯 ${ground.sport}</div>
+                        <div class="ground-info">⏰ ${ground.availability}</div>
+                        ${distance ? `<div class="ground-info">📍 ${distance.toFixed(1)} km away</div>` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Filter grounds
+        function filterGrounds() {
+            updateGroundsList();
+            
+            const visibleGrounds = filterGroundsList();
+            markers.forEach(({ marker, ground }) => {
+                marker.setVisible(visibleGrounds.some(g => g.id === ground.id));
+            });
+        }
+
+        // Filter grounds list based on current filters
+        function filterGroundsList() {
+            const searchText = document.getElementById('searchInput').value.toLowerCase();
+            const sportFilter = document.getElementById('sportFilter').value;
+            const maxDistance = parseInt(document.getElementById('distanceRange').value);
+
+            return grounds.filter(ground => {
+                // Name and sport type filter
+                const matchesSearch = ground.name.toLowerCase().includes(searchText) ||
+                    ground.sport.toLowerCase().includes(searchText);
+                
+                // Sport filter
+                const matchesSport = !sportFilter || ground.sport === sportFilter;
+                
+                // Distance filter
+                let matchesDistance = true;
+                if (userLocation) {
+                    const distance = calculateDistance(userLocation, ground.position);
+                    matchesDistance = distance <= maxDistance;
+                }
+
+                return matchesSearch && matchesSport && matchesDistance;
+            });
+        }
+
+        // Focus on a specific ground
+        function focusGround(groundId) {
+            const ground = grounds.find(g => g.id === groundId);
+            if (ground) {
+                map.setCenter(ground.position);
+                map.setZoom(15);
+                
+                // Open info window
+                const marker = markers.find(m => m.ground.id === groundId);
+                if (marker) {
+                    new google.maps.InfoWindow({
+                        content: createInfoWindowContent(ground)
+                    }).open(map, marker.marker);
+                }
+            }
+        }
+
+        // Calculate distance between two points
+        function calculateDistance(point1, point2) {
+            const R = 6371; // Earth's radius in km
+            const dLat = (point2.lat - point1.lat) * Math.PI / 180;
+            const dLng = (point2.lng - point1.lng) * Math.PI / 180;
+            const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(point1.lat * Math.PI / 180) * Math.cos(point2.lat * Math.PI / 180) *
+                Math.sin(dLng/2) * Math.sin(dLng/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            return R * c;
+        }
+
+        // Map styles for dark/light themes
+        function getMapStyles() {
+            const isDarkTheme = document.documentElement.getAttribute('data-theme') === 'dark';
+            
+            if (isDarkTheme) {
+                return [
+                    { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
+                    { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
+                    { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
+                    {
+                        featureType: "administrative.locality",
+                        elementType: "labels.text.fill",
+                        stylers: [{ color: "#d59563" }]
+                    },
+                    {
+                        featureType: "poi",
+                        elementType: "labels.text.fill",
+                        stylers: [{ color: "#d59563" }]
+                    },
+                    {
+                        featureType: "poi.park",
+                        elementType: "geometry",
+                        stylers: [{ color: "#263c3f" }]
+                    },
+                    {
+                        featureType: "poi.park",
+                        elementType: "labels.text.fill",
+                        stylers: [{ color: "#6b9a76" }]
+                    },
+                    {
+                        featureType: "road",
+                        elementType: "geometry",
+                        stylers: [{ color: "#38414e" }]
+                    },
+                    {
+                        featureType: "road",
+                        elementType: "geometry.stroke",
+                        stylers: [{ color: "#212a37" }]
+                    },
+                    {
+                        featureType: "road",
+                        elementType: "labels.text.fill",
+                        stylers: [{ color: "#9ca5b3" }]
+                    },
+                    {
+                        featureType: "road.highway",
+                        elementType: "geometry",
+                        stylers: [{ color: "#746855" }]
+                    },
+                    {
+                        featureType: "road.highway",
+                        elementType: "geometry.stroke",
+                        stylers: [{ color: "#1f2835" }]
+                    },
+                    {
+                        featureType: "road.highway",
+                        elementType: "labels.text.fill",
+                        stylers: [{ color: "#f3d19c" }]
+                    },
+                    {
+                        featureType: "transit",
+                        elementType: "geometry",
+                        stylers: [{ color: "#2f3948" }]
+                    },
+                    {
+                        featureType: "transit.station",
+                        elementType: "labels.text.fill",
+                        stylers: [{ color: "#d59563" }]
+                    },
+                    {
+                        featureType: "water",
+                        elementType: "geometry",
+                        stylers: [{ color: "#17263c" }]
+                    },
+                    {
+                        featureType: "water",
+                        elementType: "labels.text.fill",
+                        stylers: [{ color: "#515c6d" }]
+                    },
+                    {
+                        featureType: "water",
+                        elementType: "labels.text.stroke",
+                        stylers: [{ color: "#17263c" }]
+                    }
+                ];
+            }
+            
+            return []; // Default light theme
+        }
+
+        // Load the Google Maps API
+        loadGoogleMapsAPI();
+    </script>
+</body>
+</html>

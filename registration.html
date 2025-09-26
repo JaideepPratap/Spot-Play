@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SpotnPlay - Registration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="assets/js/theme.js" defer></script>
+</head>
+<body>
+    <header class="site-header" id="top">
+        <div class="container header-inner">
+            <a href="index.html" class="logo" aria-label="SpotnPlay Home">
+                <span class="logo-mark" aria-hidden="true">S</span>
+                <span class="logo-text">SpotnPlay</span>
+            </a>
+            <nav class="nav" aria-label="Primary">
+                <a class="btn" href="profile.html">My Profile</a>
+                <button id="logoutBtn" class="btn">Logout</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="section">
+        <div class="container" style="max-width:880px">
+            <h1>Choose your registration</h1>
+            <p class="sub" style="color:var(--muted)">Quick for basic info or Complete for a full sports profile.</p>
+            <div class="features-grid">
+                <article class="card">
+                    <h3>Quick Registration</h3>
+                    <p>Fast onboarding. Provide just basic info to get started.</p>
+                    <a class="btn primary" href="registration_quick.html">Start Quick</a>
+                </article>
+                <article class="card">
+                    <h3>Complete Registration</h3>
+                    <p>Build a full profile for scouting and records with documents.</p>
+                    <a class="btn primary" href="registration_complete.html">Start Complete</a>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <script src="assets/js/auth.js"></script>
+    <script>
+    (function(){
+        window.SpotnPlayAuth.requireAuth('login.html');
+        var logout = document.getElementById('logoutBtn');
+        logout.addEventListener('click', function(){ window.SpotnPlayAuth.signOut(); window.location.href = 'index.html'; });
+    })();
+    </script>
+</body>
+</html>
+
+
+

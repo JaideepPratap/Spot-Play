@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SpotnPlay - Complete Registration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <header class="site-header" id="top">
+        <div class="container header-inner">
+            <a href="index.html" class="logo" aria-label="SpotnPlay Home">
+                <span class="logo-mark" aria-hidden="true">S</span>
+                <span class="logo-text">SpotnPlay</span>
+            </a>
+            <nav class="nav" aria-label="Primary">
+                <a class="btn" href="registration.html">Back</a>
+                <a class="btn" href="profile.html">My Profile</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="section">
+        <div class="container" style="max-width:900px">
+            <h1>Complete Registration</h1>
+            <form id="completeForm" class="contact-form" aria-label="Complete Registration">
+                <div class="grid">
+                    <label>
+                        <span>Full Name</span>
+                        <input required type="text" name="fullName" placeholder="Full Name">
+                    </label>
+                    <label>
+                        <span>Date of Birth</span>
+                        <input required type="date" name="dob">
+                    </label>
+                </div>
+                <div class="grid">
+                    <label>
+                        <span>Gender</span>
+                        <select required name="gender">
+                            <option value="" disabled selected>Select</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Other</option>
+                        </select>
+                    </label>
+                    <label>
+                        <span>Sport (main)</span>
+                        <input required type="text" name="sport" placeholder="Football, Cricket, Sprinting...">
+                    </label>
+                </div>
+                <div class="grid">
+                    <label>
+                        <span>Position/Role</span>
+                        <input type="text" name="role" placeholder="Striker, Goalkeeper, Sprinter...">
+                    </label>
+                    <label>
+                        <span>Achievements</span>
+                        <input type="text" name="achievements" placeholder="Awards, medals, tournaments">
+                    </label>
+                </div>
+                <div class="grid">
+                    <label>
+                        <span>Height (cm)</span>
+                        <input type="number" min="0" name="height" placeholder="175">
+                    </label>
+                    <label>
+                        <span>Weight (kg)</span>
+                        <input type="number" min="0" name="weight" placeholder="70">
+                    </label>
+                </div>
+                <div class="grid">
+                    <label>
+                        <span>Email ID</span>
+                        <input required type="email" name="email" placeholder="you@example.com">
+                    </label>
+                    <label>
+                        <span>Contact Number</span>
+                        <input required type="tel" name="contact" placeholder="+91 90000 00000">
+                    </label>
+                </div>
+                <label>
+                    <span>Address</span>
+                    <input type="text" name="address" placeholder="City/Town/Village or full address">
+                </label>
+                <div class="grid">
+                    <label>
+                        <span>Training/Club/Academy Name</span>
+                        <input type="text" name="club" placeholder="Academy/Club Name">
+                    </label>
+                    <label>
+                        <span>Coach Name & Contact (optional)</span>
+                        <input type="text" name="coach" placeholder="Coach Name, Phone">
+                    </label>
+                </div>
+                <div class="grid">
+                    <label>
+                        <span>Upload Photo (profile)</span>
+                        <input type="file" name="photo" accept="image/*">
+                    </label>
+                    <label>
+                        <span>Upload Certificates/Performance Proof (optional)</span>
+                        <input type="file" name="certs" accept="image/*,application/pdf" multiple>
+                    </label>
+                </div>
+                <button type="submit" class="btn primary" style="width:100%">Save</button>
+            </form>
+        </div>
+    </main>
+
+    <script src="assets/js/auth.js"></script>
+    <script>
+    (function(){
+        window.SpotnPlayAuth.requireAuth('login.html');
+        var session = window.SpotnPlayAuth.getSession();
+        var form = document.getElementById('completeForm');
+        // Prefill if exists
+        var existing = (session && session.profile && session.profile.complete) || {};
+        Object.keys(existing).forEach(function(k){ if(form.elements[k]){ form.elements[k].value = existing[k]; }});
+        if(session && session.fullName){ form.elements['fullName'].value = session.fullName; }
+        if(session && session.email){ form.elements['email'].value = session.email; }
+
+        function fileToDataUrl(file, cb){
+            var reader = new FileReader();
+            reader.onload = function(){ cb(reader.result); };
+            reader.readAsDataURL(file);
+        }
+        form.addEventListener('submit', function(e){
+            e.preventDefault();
+            var data = new FormData(form);
+            var complete = {
+                fullName: (data.get('fullName')||'').trim(),
+                dob: (data.get('dob')||'').trim(),
+                gender: (data.get('gender')||'').trim(),
+                sport: (data.get('sport')||'').trim(),
+                role: (data.get('role')||'').trim(),
+                achievements: (data.get('achievements')||'').trim(),
+                height: (data.get('height')||'').trim(),
+                weight: (data.get('weight')||'').trim(),
+                email: (data.get('email')||'').trim(),
+                contact: (data.get('contact')||'').trim(),
+                address: (data.get('address')||'').trim(),
+                club: (data.get('club')||'').trim(),
+                coach: (data.get('coach')||'').trim(),
+            };
+            var photoFile = form.elements['photo'].files[0] || null;
+            var certFiles = Array.prototype.slice.call(form.elements['certs'].files || []);
+            var certDataUrls = [];
+
+            function saveNow(photoUrl){
+                var updates = { profile: Object.assign({}, session.profile, { registrationType: 'complete', complete: Object.assign({}, complete, { photoUrl: photoUrl || (existing && existing.photoUrl) || '' , certificates: certDataUrls }) }) };
+                if(!session.profile) updates.profile = { registrationType:'complete', complete: Object.assign({}, complete) };
+                window.SpotnPlayAuth.updateUser(session.email, updates);
+                alert('Complete registration saved');
+                window.location.href = 'profile.html';
+            }
+
+            if(certFiles.length){
+                var remaining = certFiles.length;
+                certFiles.forEach(function(f){
+                    fileToDataUrl(f, function(url){
+                        certDataUrls.push(url);
+                        remaining -= 1;
+                        if(remaining === 0){ proceed(); }
+                    });
+                });
+            } else { proceed(); }
+
+            function proceed(){
+                if(photoFile){
+                    fileToDataUrl(photoFile, function(photoUrl){ saveNow(photoUrl); });
+                } else { saveNow(null); }
+            }
+        });
+    })();
+    </script>
+</body>
+</html>
+
+
+

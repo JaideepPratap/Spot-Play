@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SpotnPlay - Quick Registration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <header class="site-header" id="top">
+        <div class="container header-inner">
+            <a href="index.html" class="logo" aria-label="SpotnPlay Home">
+                <span class="logo-mark" aria-hidden="true">S</span>
+                <span class="logo-text">SpotnPlay</span>
+            </a>
+            <nav class="nav" aria-label="Primary">
+                <a class="btn" href="registration.html">Back</a>
+                <a class="btn" href="profile.html">My Profile</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="section">
+        <div class="container" style="max-width:720px">
+            <h1>Quick Registration</h1>
+            <form id="quickForm" class="contact-form" aria-label="Quick Registration">
+                <div class="grid">
+                    <label>
+                        <span>Full Name</span>
+                        <input required type="text" name="fullName" placeholder="Full Name">
+                    </label>
+                    <label>
+                        <span>Age</span>
+                        <input required type="number" min="1" name="age" placeholder="18">
+                    </label>
+                </div>
+                <div class="grid">
+                    <label>
+                        <span>Sport</span>
+                        <input required type="text" name="sport" placeholder="Football, Cricket, Sprinting...">
+                    </label>
+                    <label>
+                        <span>Contact Number</span>
+                        <input required type="tel" name="contact" placeholder="+91 90000 00000">
+                    </label>
+                </div>
+                <button type="submit" class="btn primary" style="width:100%">Save</button>
+            </form>
+        </div>
+    </main>
+
+    <script src="assets/js/auth.js"></script>
+    <script>
+    (function(){
+        window.SpotnPlayAuth.requireAuth('login.html');
+        var session = window.SpotnPlayAuth.getSession();
+        var form = document.getElementById('quickForm');
+        // Pre-fill with existing quick data if present
+        var existing = (session && session.profile && session.profile.quick) || {};
+        ['fullName','age','sport','contact'].forEach(function(k){
+            if(existing[k]){ form.elements[k].value = existing[k]; }
+        });
+        if(session && session.fullName){ form.elements['fullName'].value = session.fullName; }
+        form.addEventListener('submit', function(e){
+            e.preventDefault();
+            var data = new FormData(form);
+            var quick = {
+                fullName: (data.get('fullName')||'').trim(),
+                age: (data.get('age')||'').trim(),
+                sport: (data.get('sport')||'').trim(),
+                contact: (data.get('contact')||'').trim(),
+            };
+            var updates = { profile: Object.assign({}, session.profile, { registrationType: 'quick', quick: quick }) };
+            if(!session.profile) updates.profile = { registrationType:'quick', quick: quick };
+            window.SpotnPlayAuth.updateUser(session.email, updates);
+            alert('Quick registration saved');
+            window.location.href = 'profile.html';
+        });
+    })();
+    </script>
+</body>
+</html>
+
+
+

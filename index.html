@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SpotnPlay - Sports & Fitness</title>
+    <meta name="description" content="Machine learning powered fitness testing, training videos, tracking, global challenges, reports and more.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="assets/js/theme.js" defer></script>
+</head>
+<body>
+    <!-- Header / Navigation -->
+    <header class="site-header" id="top">
+        <div class="container header-inner">
+            <a href="#top" class="logo" aria-label="SpotnPlay Home">
+                <span class="logo-mark" aria-hidden="true">S</span>
+                <span class="logo-text">SpotnPlay</span>
+            </a>
+            <nav class="nav" aria-label="Primary">
+                <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">☰</button>
+                <ul id="nav-menu" class="nav-menu">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="registration.html">Registration</a></li>
+                    <li id="nav-auth"></li>
+                    <li><a href="signup.html">Sign up</a></li>
+                    <li style="position: relative;">
+                        <label class="theme-switch">
+                            <input type="checkbox" id="themeToggle">
+                            <span class="slider">
+                                <span class="slider-icon light">☀️</span>
+                                <span class="slider-icon dark">🌙</span>
+                            </span>
+                        </label>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container hero-inner">
+            <div class="hero-copy">
+                <p class="eyebrow">TEST YOURSELF</p>
+                <h1>ANYTIME. ANYWHERE.</h1>
+                <p class="sub">For 9 years and above able-bodied individuals</p>
+                <div class="cta-row">
+                    <a class="btn primary" href="#features">Explore Features</a>
+                    <a class="btn ghost" href="#contact">Get in Touch</a>
+                    <a class="btn" href="registration.html">Register</a>
+                </div>
+                <div class="store-badges">
+                    <span class="badge">Get it on Google Play</span>
+                    <span class="badge">Download on the App Store</span>
+                </div>
+            </div>
+            <div class="hero-art" aria-hidden="true">
+                <div class="orb orb-1"></div>
+                <div class="orb orb-2"></div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Find Teammates Section -->
+    <section id="teammates" class="section">
+        <div class="container">
+            <h2>Find Your Teammates</h2>
+            <p class="sub" style="color:var(--muted);margin-bottom:24px">Connect with other players and build your team.</p>
+            
+            <div style="text-align:center;margin-bottom:24px">
+                <button id="showFiltersBtn" class="btn primary">Find Teammates</button>
+            </div>
+            
+            <div id="searchSection" class="search-section" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:20px;display:none">
+                <h3>Search Filters</h3>
+                <div class="filter-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px">
+                    <label>
+                        <span>Name</span>
+                        <input type="text" id="nameFilter" placeholder="Search by name">
+                    </label>
+                    <label>
+                        <span>Sport</span>
+                        <select id="sportFilter">
+                            <option value="">Any Sport</option>
+                            <option value="Football">Football</option>
+                            <option value="Cricket">Cricket</option>
+                            <option value="Basketball">Basketball</option>
+                            <option value="Tennis">Tennis</option>
+                            <option value="Badminton">Badminton</option>
+                            <option value="Volleyball">Volleyball</option>
+                            <option value="Running">Running</option>
+                            <option value="Swimming">Swimming</option>
+                        </select>
+                    </label>
+                    <label>
+                        <span>Gender</span>
+                        <select id="genderFilter">
+                            <option value="">Any Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </label>
+                    <label>
+                        <span>Location</span>
+                        <input type="text" id="locationFilter" placeholder="City or Area">
+                    </label>
+                    <label>
+                        <span>Skill Level</span>
+                        <select id="skillFilter">
+                            <option value="">Any Level</option>
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Advanced">Advanced</option>
+                            <option value="Professional">Professional</option>
+                        </select>
+                    </label>
+                    <label>
+                        <span>Age Range</span>
+                        <select id="ageFilter">
+                            <option value="">Any Age</option>
+                            <option value="18-25">18-25</option>
+                            <option value="26-35">26-35</option>
+                            <option value="36-45">36-45</option>
+                            <option value="46+">46+</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="location-range" style="margin-bottom:16px">
+                    <label>
+                        <span>Distance Range: <span id="distanceValue">25</span> km</span>
+                        <input type="range" id="distanceFilter" min="1" max="50" value="25" style="width:100%;margin-top:8px">
+                    </label>
+                    <button id="getLocationBtn" class="btn ghost small" style="margin-top:8px">📍 Use My Location</button>
+                </div>
+                <button id="searchBtn" class="btn primary">Search Teammates</button>
+                <button id="clearBtn" class="btn ghost" style="margin-left:8px">Clear Filters</button>
+            </div>
+
+            <div id="resultsSection">
+                <h3>Available Players</h3>
+                <div id="resultsContainer" class="results-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px">
+                    <!-- Teammates will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Find Sports Grounds Section -->
+    <section id="find-grounds" class="section">
+        <div class="container">
+            <div class="section-head">
+                <h2>Find Sports Grounds</h2>
+                <p class="sub">Discover and book sports facilities near you</p>
+            </div>
+
+            <div class="preview-features" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-bottom:32px">
+                <div class="card">
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+                        <div style="width:40px;height:40px;border-radius:8px;background:var(--brand);display:grid;place-items:center;font-size:20px">🏟️</div>
+                        <h3 style="margin:0">Local Grounds</h3>
+                    </div>
+                    <p style="color:var(--muted);margin-bottom:16px">Find sports facilities in your neighborhood</p>
+                    <div class="sport-tags" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px">
+                        <span style="background:var(--panel);color:var(--muted);padding:4px 12px;border-radius:12px;font-size:0.9em">⚽ Football</span>
+                        <span style="background:var(--panel);color:var(--muted);padding:4px 12px;border-radius:12px;font-size:0.9em">🏏 Cricket</span>
+                        <span style="background:var(--panel);color:var(--muted);padding:4px 12px;border-radius:12px;font-size:0.9em">🏀 Basketball</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+                        <div style="width:40px;height:40px;border-radius:8px;background:var(--brand);display:grid;place-items:center;font-size:20px">📅</div>
+                        <h3 style="margin:0">Real-time Availability</h3>
+                    </div>
+                    <p style="color:var(--muted);margin-bottom:16px">Check ground availability and book instantly</p>
+                    <div class="availability-tags" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px">
+                        <span style="background:var(--panel);color:var(--muted);padding:4px 12px;border-radius:12px;font-size:0.9em">⏰ 24/7 Access</span>
+                        <span style="background:var(--panel);color:var(--muted);padding:4px 12px;border-radius:12px;font-size:0.9em">📱 Instant Booking</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+                        <div style="width:40px;height:40px;border-radius:8px;background:var(--brand);display:grid;place-items:center;font-size:20px">🗺️</div>
+                        <h3 style="margin:0">Interactive Map</h3>
+                    </div>
+                    <p style="color:var(--muted);margin-bottom:16px">Visual navigation to find the perfect venue</p>
+                    <div class="feature-tags" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px">
+                        <span style="background:var(--panel);color:var(--muted);padding:4px 12px;border-radius:12px;font-size:0.9em">📍 Location Based</span>
+                        <span style="background:var(--panel);color:var(--muted);padding:4px 12px;border-radius:12px;font-size:0.9em">🔍 Easy Search</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align:center;margin-bottom:40px">
+                <a href="find-grounds.html" class="btn primary large">Find Sports Grounds</a>
+                <button onclick="getCurrentLocation()" class="btn ghost" style="margin-left:12px">📍 Use My Location</button>
+            </div>
+
+            <!-- Featured Grounds Preview -->
+            <div class="featured-grounds" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px">
+                <div class="card">
+                    <div style="height:160px;background:var(--panel);border-radius:8px;overflow:hidden;margin:-20px -20px 15px">
+                        <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211" 
+                             style="width:100%;height:100%;object-fit:cover"
+                             alt="Central Sports Complex">
+                    </div>
+                    <h4 style="margin:0 0 8px">Central Sports Complex</h4>
+                    <div style="color:var(--muted);font-size:0.9em;margin-bottom:4px">🏟️ Multi-sport facility</div>
+                    <div style="color:var(--muted);font-size:0.9em;margin-bottom:12px">📍 Central Delhi</div>
+                    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:15px">
+                        <span style="background:var(--panel);color:var(--accent);padding:4px 12px;border-radius:12px;font-size:0.8em">Football</span>
+                        <span style="background:var(--panel);color:var(--accent);padding:4px 12px;border-radius:12px;font-size:0.8em">Cricket</span>
+                        <span style="background:var(--panel);color:var(--accent);padding:4px 12px;border-radius:12px;font-size:0.8em">Tennis</span>
+                    </div>
+                    <div style="color:#22c55e;font-size:0.9em;margin-bottom:12px">✓ Available Now</div>
+                </div>
+
+                <div class="card">
+                    <div style="height:160px;background:var(--panel);border-radius:8px;overflow:hidden;margin:-20px -20px 15px">
+                        <img src="https://images.unsplash.com/photo-1474224017046-182ece80b263" 
+                             style="width:100%;height:100%;object-fit:cover"
+                             alt="Riverside Arena">
+                    </div>
+                    <h4 style="margin:0 0 8px">Riverside Arena</h4>
+                    <div style="color:var(--muted);font-size:0.9em;margin-bottom:4px">🏀 Basketball Courts</div>
+                    <div style="color:var(--muted);font-size:0.9em;margin-bottom:12px">📍 South Delhi</div>
+                    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:15px">
+                        <span style="background:var(--panel);color:var(--accent);padding:4px 12px;border-radius:12px;font-size:0.8em">Basketball</span>
+                        <span style="background:var(--panel);color:var(--accent);padding:4px 12px;border-radius:12px;font-size:0.8em">Volleyball</span>
+                    </div>
+                    <div style="color:#eab308;font-size:0.9em;margin-bottom:12px">⏰ Available from 6 PM</div>
+                </div>
+
+                <div class="card">
+                    <div style="height:160px;background:var(--panel);border-radius:8px;overflow:hidden;margin:-20px -20px 15px">
+                        <img src="https://images.unsplash.com/photo-1591491719565-14c56ba7bb65" 
+                             style="width:100%;height:100%;object-fit:cover"
+                             alt="Green Valley Ground">
+                    </div>
+                    <h4 style="margin:0 0 8px">Green Valley Ground</h4>
+                    <div style="color:var(--muted);font-size:0.9em;margin-bottom:4px">⚽ Football Ground</div>
+                    <div style="color:var(--muted);font-size:0.9em;margin-bottom:12px">📍 East Delhi</div>
+                    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:15px">
+                        <span style="background:var(--panel);color:var(--accent);padding:4px 12px;border-radius:12px;font-size:0.8em">Football</span>
+                        <span style="background:var(--panel);color:var(--accent);padding:4px 12px;border-radius:12px;font-size:0.8em">Athletics</span>
+                    </div>
+                    <div style="color:#22c55e;font-size:0.9em;margin-bottom:12px">✓ Available Now</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Clubs Section -->
+    <section id="social-clubs" class="section alt">
+        <div class="container">
+            <div class="section-head">
+                <h2>Social Clubs</h2>
+                <p class="sub">Join communities and create your own SocialSpot</p>
+            </div>
+            
+            <div style="text-align:center;margin-bottom:32px">
+                <button id="createClubBtn" class="btn primary large">Create Your SocialSpot</button>
+                <button id="showClubsBtn" class="btn ghost" style="margin-left:12px">Browse Clubs</button>
+            </div>
+
+            <div id="clubsSection" style="display:none">
+                <div class="filter-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:24px">
+                    <label>
+                        <span>Sport</span>
+                        <select id="clubSportFilter">
+                            <option value="">Any Sport</option>
+                            <option value="Football">Football</option>
+                            <option value="Cricket">Cricket</option>
+                            <option value="Basketball">Basketball</option>
+                            <option value="Tennis">Tennis</option>
+                            <option value="Badminton">Badminton</option>
+                            <option value="Volleyball">Volleyball</option>
+                            <option value="Running">Running</option>
+                            <option value="Swimming">Swimming</option>
+                        </select>
+                    </label>
+                    <label>
+                        <span>Location</span>
+                        <input type="text" id="clubLocationFilter" placeholder="City or Area">
+                    </label>
+                    <label>
+                        <span>Club Type</span>
+                        <select id="clubTypeFilter">
+                            <option value="">Any Type</option>
+                            <option value="Competitive">Competitive</option>
+                            <option value="Casual">Casual</option>
+                            <option value="Training">Training</option>
+                            <option value="Social">Social</option>
+                        </select>
+                    </label>
+                </div>
+                
+                <div id="clubsContainer" class="results-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px">
+                    <!-- Clubs will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Create Club Modal -->
+            <div id="createClubModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);z-index:1000;align-items:center;justify-content:center">
+                <div style="background:var(--card);border-radius:14px;padding:24px;max-width:500px;width:90%;position:relative">
+                    <button id="closeModalBtn" style="position:absolute;top:12px;right:12px;background:none;border:none;color:var(--muted);font-size:24px;cursor:pointer;padding:8px;line-height:1">×</button>
+                    <h3 style="margin:0 0 20px">Create Your SocialSpot</h3>
+                    <form id="createClubForm" onsubmit="return createClub(event)">
+                        <div style="margin-bottom:16px">
+                            <label style="display:block;margin-bottom:8px;color:var(--muted)">Club Name</label>
+                            <input type="text" id="clubName" required 
+                                   style="width:100%;padding:10px;background:var(--panel);border:1px solid var(--border);border-radius:8px;color:var(--text)"
+                                   placeholder="Enter club name">
+                        </div>
+                        <div style="margin-bottom:16px">
+                            <label style="display:block;margin-bottom:8px;color:var(--muted)">Sport</label>
+                            <select id="clubSport" required 
+                                    style="width:100%;padding:10px;background:var(--panel);border:1px solid var(--border);border-radius:8px;color:var(--text)">
+                                <option value="">Select a sport</option>
+                                <option value="Football">Football</option>
+                                <option value="Cricket">Cricket</option>
+                                <option value="Basketball">Basketball</option>
+                                <option value="Tennis">Tennis</option>
+                                <option value="Badminton">Badminton</option>
+                                <option value="Volleyball">Volleyball</option>
+                                <option value="Running">Running</option>
+                                <option value="Swimming">Swimming</option>
+                                <option value="Yoga">Yoga</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom:16px">
+                            <label style="display:block;margin-bottom:8px;color:var(--muted)">Location</label>
+                            <input type="text" id="clubLocation" required 
+                                   style="width:100%;padding:10px;background:var(--panel);border:1px solid var(--border);border-radius:8px;color:var(--text)"
+                                   placeholder="City or Area">
+                        </div>
+                        <div style="margin-bottom:16px">
+                            <label style="display:block;margin-bottom:8px;color:var(--muted)">Club Type</label>
+                            <select id="clubType" required 
+                                    style="width:100%;padding:10px;background:var(--panel);border:1px solid var(--border);border-radius:8px;color:var(--text)">
+                                <option value="">Select club type</option>
+                                <option value="Competitive">Competitive</option>
+                                <option value="Casual">Casual</option>
+                                <option value="Training">Training</option>
+                                <option value="Social">Social</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom:16px">
+                            <label style="display:block;margin-bottom:8px;color:var(--muted)">Description</label>
+                            <textarea id="clubDescription" required 
+                                    style="width:100%;padding:10px;background:var(--panel);border:1px solid var(--border);border-radius:8px;color:var(--text);min-height:100px"
+                                    placeholder="Describe your club, its goals, and activities"></textarea>
+                        </div>
+                        <div style="display:flex;gap:12px;justify-content:flex-end">
+                            <button type="button" onclick="hideCreateModal()" class="btn ghost">Cancel</button>
+                            <button type="submit" class="btn primary">Create Club</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fitness Content Hub -->
+    <section id="content-hub" class="section">
+        <div class="container">
+            <!-- FitBlog/FitVlogs Heading -->
+            <div style="text-align: center; margin-bottom: 32px;">
+                <h1 style="font-size: 3em; font-weight: 800; background: var(--brand); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 16px;">
+                    💪 FitBlog & FitVlogs ❤️
+                </h1>
+                <p style="color: var(--muted); font-size: 1.2em; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <span>✨</span>
+                    <span>Discover amazing fitness content from our community</span>
+                    <span>🏃‍♂️</span>
+                </p>
+            </div>
+
+            <div class="section-head">
+                <h2>Fitness Content Hub</h2>
+                <p class="sub">Explore expert fitness content, share knowledge, and grow together</p>
+            </div>
+
+            <!-- Feature Highlights -->
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-bottom:40px">
+                <!-- Content Types -->
+                <div class="card">
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+                        <div style="width:40px;height:40px;border-radius:8px;background:var(--brand);display:grid;place-items:center;font-size:24px">
+                            📱
+                        </div>
+                        <h3 style="margin:0">Rich Content</h3>
+                    </div>
+                    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px">
+                        <span style="background:var(--panel);color:var(--muted);padding:4px 12px;border-radius:12px;font-size:0.9em">📝 Blogs</span>
+                        <span style="background:var(--panel);color:var(--muted);padding:4px 12px;border-radius:12px;font-size:0.9em">🎥 Videos</span>
+                        <span style="background:var(--panel);color:var(--muted);padding:4px 12px;border-radius:12px;font-size:0.9em">📊 Workout Plans</span>
+                    </div>
+                    <p style="color:var(--muted);margin:0">Share and explore diverse fitness content formats</p>
+                </div>
+
+                <!-- Community Features -->
+                <div class="card">
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+                        <div style="width:40px;height:40px;border-radius:8px;background:var(--brand);display:grid;place-items:center;font-size:24px">
+                            👥
+                        </div>
+                        <h3 style="margin:0">Community</h3>
+                    </div>
+                    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px">
+                        <span style="background:var(--panel);color:var(--muted);padding:4px 12px;border-radius:12px;font-size:0.9em">💬 Comments</span>
+                        <span style="background:var(--panel);color:var(--muted);padding:4px 12px;border-radius:12px;font-size:0.9em">⭐ Ratings</span>
+                        <span style="background:var(--panel);color:var(--muted);padding:4px 12px;border-radius:12px;font-size:0.9em">📊 Polls</span>
+                    </div>
+                    <p style="color:var(--muted);margin:0">Engage with fitness enthusiasts and experts</p>
+                </div>
+
+                <!-- Rewards -->
+                <div class="card">
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+                        <div style="width:40px;height:40px;border-radius:8px;background:var(--brand);display:grid;place-items:center;font-size:24px">
+                            🏆
+                        </div>
+                        <h3 style="margin:0">Rewards</h3>
+                    </div>
+                    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px">
+                        <span style="background:var(--panel);color:var(--muted);padding:4px 12px;border-radius:12px;font-size:0.9em">🪙 FitCoins</span>
+                        <span style="background:var(--panel);color:var(--muted);padding:4px 12px;border-radius:12px;font-size:0.9em">📈 Leaderboard</span>
+                        <span style="background:var(--panel);color:var(--muted);padding:4px 12px;border-radius:12px;font-size:0.9em">🎯 Achievements</span>
+                    </div>
+                    <p style="color:var(--muted);margin:0">Earn rewards for your fitness journey</p>
+                </div>
+            </div>
+
+            <!-- Featured Content Preview -->
+            <div style="margin-bottom:40px">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+                    <h3 style="margin:0">Trending Content</h3>
+                    <div class="btn-group" style="display:flex;gap:8px">
+                        <button class="btn ghost" data-filter="all">All</button>
+                        <button class="btn ghost" data-filter="blogs">Blogs</button>
+                        <button class="btn ghost" data-filter="videos">Videos</button>
+                        <button class="btn ghost" data-filter="plans">Plans</button>
+                    </div>
+                </div>
+
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px">
+                    <!-- Featured Blog -->
+                    <div class="card">
+                        <div style="height:200px;background:var(--panel);border-radius:8px;overflow:hidden;margin:-20px -20px 15px">
+                            <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd" 
+                                 style="width:100%;height:100%;object-fit:cover"
+                                 alt="HIIT Workout">
+                        </div>
+                        <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:12px">
+                            <div>
+                                <span style="background:var(--accent);color:var(--bg);padding:4px 12px;border-radius:12px;font-size:0.8em">Featured</span>
+                                <span style="background:var(--panel);color:var(--muted);padding:4px 12px;border-radius:12px;font-size:0.8em;margin-left:8px">Blog</span>
+                            </div>
+                            <div style="color:var(--muted);font-size:0.9em">👁️ 2.4k views</div>
+                        </div>
+                        <h4 style="margin:0 0 8px">Ultimate HIIT Workout Guide</h4>
+                        <p style="color:var(--muted);font-size:0.9em;margin:0 0 12px">Master high-intensity interval training with this comprehensive guide...</p>
+                        <div style="display:flex;align-items:center;justify-content:space-between">
+                            <div style="display:flex;align-items:center;gap:8px">
+                                <div style="width:32px;height:32px;border-radius:50%;background:var(--brand);display:grid;place-items:center">
+                                    👤
+                                </div>
+                                <div>
+                                    <div style="font-size:0.9em">Sarah Wilson</div>
+                                    <div style="color:var(--muted);font-size:0.8em">Fitness Expert</div>
+                                </div>
+                            </div>
+                            <div style="display:flex;gap:12px;color:var(--muted)">
+                                <span>❤️ 328</span>
+                                <span>💬 42</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Featured Video -->
+                    <div class="card">
+                        <div style="height:200px;background:var(--panel);border-radius:8px;overflow:hidden;margin:-20px -20px 15px;position:relative">
+                            <img src="https://images.unsplash.com/photo-1601422407692-ec4eeec1d9b3" 
+                                 style="width:100%;height:100%;object-fit:cover"
+                                 alt="Yoga Flow">
+                            <div style="position:absolute;bottom:12px;right:12px;background:rgba(0,0,0,0.7);color:white;padding:4px 12px;border-radius:12px;font-size:0.8em">
+                                12:45
+                            </div>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:12px">
+                            <div>
+                                <span style="background:var(--brand-solid);color:var(--bg);padding:4px 12px;border-radius:12px;font-size:0.8em">Trending</span>
+                                <span style="background:var(--panel);color:var(--muted);padding:4px 12px;border-radius:12px;font-size:0.8em;margin-left:8px">Video</span>
+                            </div>
+                            <div style="color:var(--muted);font-size:0.9em">👁️ 5.1k views</div>
+                        </div>
+                        <h4 style="margin:0 0 8px">Morning Yoga Flow</h4>
+                        <p style="color:var(--muted);font-size:0.9em;margin:0 0 12px">Start your day with this energizing yoga sequence...</p>
+                        <div style="display:flex;align-items:center;justify-content:space-between">
+                            <div style="display:flex;align-items:center;gap:8px">
+                                <div style="width:32px;height:32px;border-radius:50%;background:var(--brand);display:grid;place-items:center">
+                                    👤
+                                </div>
+                                <div>
+                                    <div style="font-size:0.9em">Priya Sharma</div>
+                                    <div style="color:var(--muted);font-size:0.8em">Yoga Instructor</div>
+                                </div>
+                            </div>
+                            <div style="display:flex;gap:12px;color:var(--muted)">
+                                <span>❤️ 892</span>
+                                <span>💬 156</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Featured Workout Plan -->
+                    <div class="card">
+                        <div style="height:200px;background:var(--panel);border-radius:8px;overflow:hidden;margin:-20px -20px 15px">
+                            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48" 
+                                 style="width:100%;height:100%;object-fit:cover"
+                                 alt="Strength Training">
+                        </div>
+                        <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:12px">
+                            <div>
+                                <span style="background:var(--panel);color:var(--muted);padding:4px 12px;border-radius:12px;font-size:0.8em">Workout Plan</span>
+                                <span style="background:var(--accent);color:var(--bg);padding:4px 12px;border-radius:12px;font-size:0.8em;margin-left:8px">New</span>
+                            </div>
+                            <div style="color:var(--muted);font-size:0.9em">👁️ 1.8k views</div>
+                        </div>
+                        <h4 style="margin:0 0 8px">30-Day Strength Program</h4>
+                        <p style="color:var(--muted);font-size:0.9em;margin:0 0 12px">Complete strength training program with daily workouts...</p>
+                        <div style="display:flex;align-items:center;justify-content:space-between">
+                            <div style="display:flex;align-items:center;gap:8px">
+                                <div style="width:32px;height:32px;border-radius:50%;background:var(--brand);display:grid;place-items:center">
+                                    👤
+                                </div>
+                                <div>
+                                    <div style="font-size:0.9em">Mike Chen</div>
+                                    <div style="color:var(--muted);font-size:0.8em">Strength Coach</div>
+                                </div>
+                            </div>
+                            <div style="display:flex;gap:12px;color:var(--muted)">
+                                <span>❤️ 245</span>
+                                <span>💬 38</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align:center">
+                <a href="content-hub.html" class="btn primary large">Explore Content Hub</a>
+                <a href="create-content.html" class="btn ghost large" style="margin-left:12px">Share Your Knowledge</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Group 1 -->
+    <section id="features" class="section">
+        <div class="container">
+            <h2>Machine learning algorithms to generate customised training videos to improve your level of fitness</h2>
+            <div class="features-grid">
+                <article class="card">
+                    <div class="icon video" aria-hidden="true"></div>
+                    <h3>Training Videos</h3>
+                    <p>Personalised plans and form cues to progress safely and effectively.</p>
+                </article>
+                <article class="card">
+                    <div class="icon tracking" aria-hidden="true"></div>
+                    <h3>Fitness Tracking</h3>
+                    <p>Scientific benchmarks, posture tracking and ongoing progress monitoring.</p>
+                </article>
+                <article class="card">
+                    <div class="icon globe" aria-hidden="true"></div>
+                    <h3>Compete Globally</h3>
+                    <p>Create challenges and participate worldwide with real-time leaderboards.</p>
+                </article>
+                <article class="card">
+                    <div class="icon diy" aria-hidden="true"></div>
+                    <h3>Do It Yourself</h3>
+                    <p>Self-serve tests and instant analytics for individuals and organisations.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- FitCoin / Bharat Points Section -->
+    <section id="fitcoin" class="section alt">
+        <div class="container">
+            <div class="section-head">
+                <h2>🪙 Earn-to-Fit Model</h2>
+                <p class="sub">Transform your fitness journey into a rewarding experience</p>
+            </div>
+            
+            <div class="fitcoin-preview">
+                <div class="preview-content">
+                    <div class="preview-text">
+                        <h3>Earn FitCoins for Every Activity</h3>
+                        <p>Get rewarded for staying fit! Complete workouts, join challenges, and achieve milestones to earn digital tokens that can be redeemed for discounts on authentic Indian products.</p>
+                        
+                        <div class="preview-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">10-30</span>
+                                <span class="stat-label">FitCoins per Activity</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">50+</span>
+                                <span class="stat-label">Swadeshi Products</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">1000+</span>
+                                <span class="stat-label">Active Users</span>
+                            </div>
+                        </div>
+                        
+                        <div class="preview-features">
+                            <div class="feature-highlight">
+                                <span class="feature-icon">💪</span>
+                                <span>Activity Tracking</span>
+                            </div>
+                            <div class="feature-highlight">
+                                <span class="feature-icon">🔥</span>
+                                <span>Daily Streaks</span>
+                            </div>
+                            <div class="feature-highlight">
+                                <span class="feature-icon">🏆</span>
+                                <span>Achievements</span>
+                            </div>
+                            <div class="feature-highlight">
+                                <span class="feature-icon">🇮🇳</span>
+                                <span>Swadeshi Marketplace</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-visual">
+                        <div class="coin-showcase">
+                            <div class="coin-icon">🪙</div>
+                            <div class="coin-glow"></div>
+                        </div>
+                        <div class="activity-flow">
+                            <div class="flow-item">
+                                <span class="flow-icon">🏃</span>
+                                <span class="flow-text">Exercise</span>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-item">
+                                <span class="flow-icon">🪙</span>
+                                <span class="flow-text">Earn Coins</span>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-item">
+                                <span class="flow-icon">🛒</span>
+                                <span class="flow-text">Redeem</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="preview-cta">
+                    <a href="fitcoin.html" class="btn primary large">Explore FitCoin Economy</a>
+                    <a href="fitcoin.html#marketplace" class="btn ghost">Browse Marketplace</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reporting / Tech Features -->
+    <section class="section alt">
+        <div class="container">
+            <div class="split">
+                <div>
+                    <h2>Real-time reporting</h2>
+                    <p>On-screen and PDF reports generated in seconds. Share and compare easily.</p>
+                </div>
+                <div>
+                    <h2>Habit Tracking</h2>
+                    <p>Daily habits that compound into meaningful, measurable change.</p>
+                </div>
+                <div>
+                    <h2>Computer Vision</h2>
+                    <p>Camera-powered motion analysis to guide technique and prevent injuries.</p>
+                </div>
+                <div>
+                    <h2>Artificial Intelligence</h2>
+                    <p>ML-driven insights that personalise training and recovery.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Gallery -->
+    <section id="experience" class="section">
+        <div class="container">
+            <div class="section-head">
+                <h2>The SpotnPlay Experience</h2>
+                <a class="btn small" href="#contact">Know more</a>
+            </div>
+            <div class="gallery">
+                <figure class="tile" style="background-image:url('https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?q=80&w=800&auto=format&fit=crop');background-size:cover;background-position:center">Beginner and Advanced Tests</figure>
+                <a href="club.html" style="text-decoration:none;color:inherit">
+                    <figure class="tile" style="background-image:url('https://images.unsplash.com/photo-1521417531071-8d7073b0f2e5?q=80&w=800&auto=format&fit=crop');background-size:cover;background-position:center">Join Our Club</figure>
+                </a>
+                <figure class="tile" style="background-image:url('https://images.unsplash.com/photo-1483721310020-03333e577078?q=80&w=800&auto=format&fit=crop');background-size:cover;background-position:center">Track your habits</figure>
+                <figure class="tile" style="background-image:url('https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=800&auto=format&fit=crop');background-size:cover;background-position:center">Hydration & Recovery</figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="section alt">
+        <div class="container">
+            <h2>Happy Customers</h2>
+            <div class="testimonials" data-autoplay="true">
+                <div class="testimonial-track">
+                    <div class="testimonial">
+                        <blockquote>
+                            <p>“A fantastic tool to improve fitness with comprehensive reporting for teams.”</p>
+                            <footer>— Managing Director, Manufacturing</footer>
+                        </blockquote>
+                    </div>
+                    <div class="testimonial">
+                        <blockquote>
+                            <p>“Evidence-based, reporting at the touch of a button. We use it with athletes.”</p>
+                            <footer>— Former Olympic Coach</footer>
+                        </blockquote>
+                    </div>
+                    <div class="testimonial">
+                        <blockquote>
+                            <p>“Quantifies my fitness so I can personalise programs and track improvement.”</p>
+                            <footer>— Senior Vice President, Technology</footer>
+                        </blockquote>
+                    </div>
+                    <div class="testimonial">
+                        <blockquote>
+                            <p>“Digitised testing with accurate results and faster implementation for schools.”</p>
+                            <footer>— Director, Sports Operations</footer>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="testimonial-controls">
+                    <button class="btn" data-prev aria-label="Previous">‹</button>
+                    <button class="btn" data-next aria-label="Next">›</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="section alt">
+        <div class="container">
+            <div class="section-head">
+                <h2>Meet Our Team</h2>
+                <p class="sub">The passionate individuals behind SpotnPlay</p>
+            </div>
+            
+            <div class="team-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-bottom:40px">
+                <div class="team-card" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;transition:all 0.3s ease">
+                    <div style="width:120px;height:120px;border-radius:50%;overflow:hidden;margin:0 auto 16px;border:2px solid var(--accent);background:var(--brand);display:flex;align-items:center;justify-content:center;font-size:2.5rem">
+                        <div style="background:var(--brand);width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--bg)">JR</div>
+                    </div>
+                    <h3 style="margin:0 0 4px;color:var(--text)">Jaideep Rajput</h3>
+                    <div style="color:var(--accent);font-weight:500;margin-bottom:12px">CEO & Founder</div>
+                    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:16px">LPU graduate with a passion for sports technology and innovation in fitness analytics.</p>
+                    <div style="display:flex;gap:12px;justify-content:center">
+                        <a href="#" class="social-link" style="width:32px;height:32px;border-radius:50%;background:var(--panel);display:grid;place-items:center;color:var(--muted);transition:all 0.2s ease">🔗</a>
+                        <a href="#" class="social-link" style="width:32px;height:32px;border-radius:50%;background:var(--panel);display:grid;place-items:center;color:var(--muted);transition:all 0.2s ease">📧</a>
+                    </div>
+                </div>
+
+                <div class="team-card" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;transition:all 0.3s ease">
+                    <div style="width:120px;height:120px;border-radius:50%;overflow:hidden;margin:0 auto 16px;border:2px solid var(--accent);background:var(--brand);display:flex;align-items:center;justify-content:center;font-size:2.5rem">
+                        <div style="background:var(--brand);width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--bg)">RV</div>
+                    </div>
+                    <h3 style="margin:0 0 4px;color:var(--text)">Rakhi Verma</h3>
+                    <div style="color:var(--accent);font-weight:500;margin-bottom:12px">CTO</div>
+                    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:16px">LPU Computer Science graduate specializing in machine learning and sports biomechanics.</p>
+                    <div style="display:flex;gap:12px;justify-content:center">
+                        <a href="#" class="social-link" style="width:32px;height:32px;border-radius:50%;background:var(--panel);display:grid;place-items:center;color:var(--muted);transition:all 0.2s ease">🔗</a>
+                        <a href="#" class="social-link" style="width:32px;height:32px;border-radius:50%;background:var(--panel);display:grid;place-items:center;color:var(--muted);transition:all 0.2s ease">📧</a>
+                    </div>
+                </div>
+
+                <div class="team-card" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;transition:all 0.3s ease">
+                    <div style="width:120px;height:120px;border-radius:50%;overflow:hidden;margin:0 auto 16px;border:2px solid var(--accent);background:var(--brand);display:flex;align-items:center;justify-content:center;font-size:2.5rem">
+                        <div style="background:var(--brand);width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--bg)">RK</div>
+                    </div>
+                    <h3 style="margin:0 0 4px;color:var(--text)">Ram Kumar</h3>
+                    <div style="color:var(--accent);font-weight:500;margin-bottom:12px">Head of Sports Science</div>
+                    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:16px">LPU Sports Science graduate with expertise in performance analytics and training optimization.</p>
+                    <div style="display:flex;gap:12px;justify-content:center">
+                        <a href="#" class="social-link" style="width:32px;height:32px;border-radius:50%;background:var(--panel);display:grid;place-items:center;color:var(--muted);transition:all 0.2s ease">🔗</a>
+                        <a href="#" class="social-link" style="width:32px;height:32px;border-radius:50%;background:var(--panel);display:grid;place-items:center;color:var(--muted);transition:all 0.2s ease">📧</a>
+                    </div>
+                </div>
+
+                <div class="team-card" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;transition:all 0.3s ease">
+                    <div style="width:120px;height:120px;border-radius:50%;overflow:hidden;margin:0 auto 16px;border:2px solid var(--accent);background:var(--brand);display:flex;align-items:center;justify-content:center;font-size:2.5rem">
+                        <div style="background:var(--brand);width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--bg)">RS</div>
+                    </div>
+                    <h3 style="margin:0 0 4px;color:var(--text)">Rishav Sharma</h3>
+                    <div style="color:var(--accent);font-weight:500;margin-bottom:12px">Product Manager</div>
+                    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:16px">LPU Design graduate focused on creating intuitive digital experiences for sports enthusiasts.</p>
+                    <div style="display:flex;gap:12px;justify-content:center">
+                        <a href="#" class="social-link" style="width:32px;height:32px;border-radius:50%;background:var(--panel);display:grid;place-items:center;color:var(--muted);transition:all 0.2s ease">🔗</a>
+                        <a href="#" class="social-link" style="width:32px;height:32px;border-radius:50%;background:var(--panel);display:grid;place-items:center;color:var(--muted);transition:all 0.2s ease">📧</a>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align:center">
+                <a href="about-team.html" class="btn primary">View Full Team</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Support Section -->
+    <section id="customer-support" class="section">
+        <div class="container">
+            <div class="section-head">
+                <h2>Customer Support</h2>
+                <p class="sub">We're here to help you with any questions or concerns</p>
+            </div>
+            
+            <div class="support-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-bottom:32px">
+                <div class="card">
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+                        <div style="width:40px;height:40px;border-radius:8px;background:var(--brand);display:grid;place-items:center;font-size:20px">📧</div>
+                        <h3 style="margin:0">Email Support</h3>
+                    </div>
+                    <p style="color:var(--muted);margin-bottom:16px">Get help via email within 24 hours</p>
+                    <a href="mailto:support@spotnplay.com" class="btn primary">support@spotnplay.com</a>
+                </div>
+                
+                <div class="card">
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+                        <div style="width:40px;height:40px;border-radius:8px;background:var(--brand);display:grid;place-items:center;font-size:20px">💬</div>
+                        <h3 style="margin:0">Live Chat</h3>
+                    </div>
+                    <p style="color:var(--muted);margin-bottom:16px">Chat with our support team in real-time</p>
+                    <button class="btn primary" onclick="alert('Live chat feature coming soon!')">Start Chat</button>
+                </div>
+                
+                <div class="card">
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+                        <div style="width:40px;height:40px;border-radius:8px;background:var(--brand-solid);display:grid;place-items:center;font-size:20px">❓</div>
+                        <h3 style="margin:0">FAQ</h3>
+                    </div>
+                    <p style="color:var(--muted);margin-bottom:16px">Find answers to common questions</p>
+                    <button class="btn primary" onclick="alert('FAQ section coming soon!')">Browse FAQ</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact / Footer -->
+    <footer id="contact" class="site-footer">
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <a href="#top" class="logo">
+                    <span class="logo-mark">S</span>
+                    <span class="logo-text">SpotnPlay</span>
+                </a>
+                <p>Reimagining sports and healthcare with analytics, AI and machine learning.</p>
+                <div class="social">
+                    <a href="#" aria-label="Instagram">Instagram</a>
+                    <a href="#" aria-label="Facebook">Facebook</a>
+                    <a href="#" aria-label="X / Twitter">X</a>
+                    <a href="#" aria-label="LinkedIn">LinkedIn</a>
+                </div>
+            </div>
+            <form class="contact-form" aria-label="Get In Touch" data-emailjs="true">
+                <h3>Get In Touch</h3>
+                <div class="grid">
+                    <label>
+                        <span>First Name</span>
+                        <input required type="text" name="firstName" placeholder="John">
+                    </label>
+                    <label>
+                        <span>Last Name</span>
+                        <input required type="text" name="lastName" placeholder="Doe">
+                    </label>
+                </div>
+                <label>
+                    <span>Email</span>
+                    <input required type="email" name="email" placeholder="you@example.com">
+                </label>
+                <label>
+                    <span>Message</span>
+                    <textarea name="message" rows="4" placeholder="Write a message"></textarea>
+                </label>
+                <button type="submit" class="btn primary">Submit</button>
+            </form>
+        </div>
+        <div class="container legal">
+            <p>© 2025 SpotnPlay. All rights reserved.</p>
+            <a href="#">Privacy Policy</a>
+        </div>
+    </footer>
+
+    <script src="assets/js/auth.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="assets/js/contact.js"></script>
+    <script src="assets/js/fitcoin.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script>
+    (function(){
+        var slot = document.getElementById('nav-auth');
+        if(!slot) return;
+        var session = window.SpotnPlayAuth.getSession();
+        if(session){
+            slot.innerHTML = '<a href="profile.html">My Profile</a>';
+            var li = document.createElement('li');
+            var a = document.createElement('a'); a.href = '#'; a.textContent = 'Logout';
+            a.addEventListener('click', function(e){ e.preventDefault(); window.SpotnPlayAuth.signOut(); window.location.reload(); });
+            li.appendChild(a);
+            slot.parentNode.appendChild(li);
+        } else {
+            slot.innerHTML = '<a href="login.html">Login</a>';
+            var li2 = document.createElement('li');
+            var a2 = document.createElement('a'); a2.href = 'signup.html'; a2.textContent = 'Sign up'; li2.appendChild(a2);
+            slot.parentNode.appendChild(li2);
+        }
+    })();
+
+    // Teammates functionality
+    (function(){
+        var sampleTeammates = [
+            {
+                id: 1,
+                name: "Alex Johnson",
+                sport: "Football",
+                location: "Mumbai",
+                skill: "Intermediate",
+                age: 24,
+                gender: "Male",
+                coordinates: { lat: 19.0760, lng: 72.8777 },
+                lastActive: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
+                avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+                bio: "Love playing football on weekends. Looking for regular practice partners."
+            },
+            {
+                id: 2,
+                name: "Sarah Wilson",
+                sport: "Tennis",
+                location: "Delhi",
+                skill: "Advanced",
+                age: 28,
+                gender: "Female",
+                coordinates: { lat: 28.7041, lng: 77.1025 },
+                lastActive: new Date(Date.now() - 30 * 60 * 1000), // 30 minutes ago
+                avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
+                bio: "Tennis enthusiast. Available for evening matches."
+            },
+            {
+                id: 3,
+                name: "Mike Chen",
+                sport: "Basketball",
+                location: "Bangalore",
+                skill: "Beginner",
+                age: 22,
+                gender: "Male",
+                coordinates: { lat: 12.9716, lng: 77.5946 },
+                lastActive: new Date(Date.now() - 6 * 60 * 60 * 1000), // 6 hours ago
+                avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+                bio: "New to basketball but very enthusiastic!"
+            },
+            {
+                id: 4,
+                name: "Priya Sharma",
+                sport: "Cricket",
+                location: "Mumbai",
+                skill: "Professional",
+                age: 26,
+                gender: "Female",
+                coordinates: { lat: 19.0760, lng: 72.8777 },
+                lastActive: new Date(Date.now() - 1 * 60 * 1000), // 1 minute ago
+                avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
+                bio: "Former state player. Looking for competitive matches."
+            },
+            {
+                id: 5,
+                name: "David Brown",
+                sport: "Running",
+                location: "Pune",
+                skill: "Advanced",
+                age: 35,
+                gender: "Male",
+                coordinates: { lat: 18.5204, lng: 73.8567 },
+                lastActive: new Date(Date.now() - 24 * 60 * 60 * 1000), // 1 day ago
+                avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
+                bio: "Marathon runner. Join me for morning runs!"
+            },
+            {
+                id: 6,
+                name: "Emma Davis",
+                sport: "Badminton",
+                location: "Chennai",
+                skill: "Intermediate",
+                age: 23,
+                gender: "Female",
+                coordinates: { lat: 13.0827, lng: 80.2707 },
+                lastActive: new Date(Date.now() - 3 * 60 * 60 * 1000), // 3 hours ago
+                avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face",
+                bio: "Badminton player looking for doubles partners."
+            },
+            {
+                id: 7,
+                name: "Raj Patel",
+                sport: "Volleyball",
+                location: "Ahmedabad",
+                skill: "Beginner",
+                age: 29,
+                gender: "Male",
+                coordinates: { lat: 23.0225, lng: 72.5714 },
+                lastActive: new Date(Date.now() - 12 * 60 * 60 * 1000), // 12 hours ago
+                avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face",
+                bio: "Learning volleyball, need practice partners."
+            },
+            {
+                id: 8,
+                name: "Lisa Wang",
+                sport: "Swimming",
+                location: "Kolkata",
+                skill: "Professional",
+                age: 31,
+                gender: "Female",
+                coordinates: { lat: 22.5726, lng: 88.3639 },
+                lastActive: new Date(Date.now() - 4 * 60 * 60 * 1000), // 4 hours ago
+                avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
+                bio: "Competitive swimmer. Join for training sessions."
+            }
+        ];
+
+        function getActiveStatus(lastActive) {
+            var now = new Date();
+            var diffMs = now - lastActive;
+            var diffMins = Math.floor(diffMs / (1000 * 60));
+            var diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+            var diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            
+            if (diffMins < 5) {
+                return '<span style="color:#22d3ee;font-weight:600">🟢 Active now</span>';
+            } else if (diffMins < 60) {
+                return '<span style="color:#fbbf24;font-weight:600">🟡 Last active ' + diffMins + ' min ago</span>';
+            } else if (diffHours < 24) {
+                return '<span style="color:#f59e0b;font-weight:600">🟠 Last active ' + diffHours + 'h ago</span>';
+            } else {
+                return '<span style="color:var(--muted);font-weight:600">⚫ Last active ' + diffDays + 'd ago</span>';
+            }
+        }
+
+        function calculateDistance(lat1, lng1, lat2, lng2) {
+            var R = 6371; // Earth's radius in kilometers
+            var dLat = (lat2 - lat1) * Math.PI / 180;
+            var dLng = (lng2 - lng1) * Math.PI / 180;
+            var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                    Math.sin(dLng/2) * Math.sin(dLng/2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            return R * c;
+        }
+
+        function renderTeammates(teammates){
+            var container = document.getElementById('resultsContainer');
+            if(!teammates || teammates.length === 0){
+                container.innerHTML = '<div style="text-align:center;color:var(--muted);padding:40px">No teammates found matching your criteria.</div>';
+                return;
+            }
+
+            container.innerHTML = teammates.map(function(teammate){
+                return '<div class="card" style="transition:transform .2s ease">' +
+                    '<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">' +
+                        '<div style="width:50px;height:50px;border-radius:50%;background:#10141f;display:grid;place-items:center;overflow:hidden;position:relative">' +
+                            '<img src="' + teammate.avatar + '" alt="' + teammate.name + '" style="width:100%;height:100%;object-fit:cover">' +
+                        '</div>' +
+                        '<div style="flex:1">' +
+                            '<div style="font-weight:600;margin-bottom:2px">' + teammate.name + '</div>' +
+                            '<div style="color:var(--muted);font-size:.9rem">' + teammate.sport + ' • ' + teammate.location + '</div>' +
+                            '<div style="margin-top:4px">' + getActiveStatus(teammate.lastActive) + '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div style="color:var(--muted);font-size:.9rem;line-height:1.4;margin-bottom:8px">' +
+                        '<div><strong>Skill:</strong> ' + teammate.skill + '</div>' +
+                        '<div><strong>Age:</strong> ' + teammate.age + ' • <strong>Gender:</strong> ' + teammate.gender + '</div>' +
+                    '</div>' +
+                    '<div style="color:var(--muted);font-size:.85rem;margin-bottom:8px">' + teammate.bio + '</div>' +
+                    '<div style="display:flex;gap:8px;align-items:center;justify-content:space-between">' +
+                        '<div style="display:inline-block;background:var(--brand-solid);color:#0b0d10;padding:2px 8px;border-radius:12px;font-size:.8rem">' + teammate.skill + '</div>' +
+                        '<button class="btn ghost small" style="padding:4px 8px;font-size:.75rem">Connect</button>' +
+                    '</div>' +
+                '</div>';
+            }).join('');
+        }
+
+        var userLocation = null;
+
+        function searchTeammates(){
+            var name = document.getElementById('nameFilter').value.toLowerCase();
+            var sport = document.getElementById('sportFilter').value.toLowerCase();
+            var gender = document.getElementById('genderFilter').value.toLowerCase();
+            var location = document.getElementById('locationFilter').value.toLowerCase();
+            var skill = document.getElementById('skillFilter').value.toLowerCase();
+            var ageRange = document.getElementById('ageFilter').value;
+            var maxDistance = parseInt(document.getElementById('distanceFilter').value);
+
+            var filtered = sampleTeammates.filter(function(teammate){
+                var matchesName = !name || teammate.name.toLowerCase().includes(name);
+                var matchesSport = !sport || teammate.sport.toLowerCase().includes(sport);
+                var matchesGender = !gender || teammate.gender.toLowerCase() === gender;
+                var matchesLocation = !location || teammate.location.toLowerCase().includes(location);
+                var matchesSkill = !skill || teammate.skill.toLowerCase() === skill;
+                
+                var matchesAge = true;
+                if(ageRange){
+                    var ranges = {
+                        '18-25': function(age) { return age >= 18 && age <= 25; },
+                        '26-35': function(age) { return age >= 26 && age <= 35; },
+                        '36-45': function(age) { return age >= 36 && age <= 45; },
+                        '46+': function(age) { return age >= 46; }
+                    };
+                    matchesAge = ranges[ageRange] ? ranges[ageRange](teammate.age) : true;
+                }
+
+                var matchesDistance = true;
+                if(userLocation && teammate.coordinates){
+                    var distance = calculateDistance(
+                        userLocation.lat, userLocation.lng,
+                        teammate.coordinates.lat, teammate.coordinates.lng
+                    );
+                    matchesDistance = distance <= maxDistance;
+                }
+
+                return matchesName && matchesSport && matchesGender && matchesLocation && matchesSkill && matchesAge && matchesDistance;
+            });
+
+            // Sort by last active (most recent first)
+            filtered.sort(function(a, b) {
+                return b.lastActive - a.lastActive;
+            });
+
+            renderTeammates(filtered);
+        }
+
+        function clearFilters(){
+            document.getElementById('nameFilter').value = '';
+            document.getElementById('sportFilter').value = '';
+            document.getElementById('genderFilter').value = '';
+            document.getElementById('locationFilter').value = '';
+            document.getElementById('skillFilter').value = '';
+            document.getElementById('ageFilter').value = '';
+            document.getElementById('distanceFilter').value = '25';
+            document.getElementById('distanceValue').textContent = '25';
+            userLocation = null;
+            renderTeammates(sampleTeammates);
+        }
+
+        function getCurrentLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        userLocation = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                        searchTeammates();
+                        alert('Location found! Showing teammates within ' + document.getElementById('distanceFilter').value + ' km.');
+                    },
+                    function(error) {
+                        alert('Unable to get your location. Please enter your city manually.');
+                    }
+                );
+            } else {
+                alert('Geolocation is not supported by this browser.');
+            }
+        }
+
+        // Show all teammates by default
+        renderTeammates(sampleTeammates);
+
+        // Show/hide filters functionality
+        document.getElementById('showFiltersBtn').addEventListener('click', function(){
+            var searchSection = document.getElementById('searchSection');
+            var showBtn = document.getElementById('showFiltersBtn');
+            if(searchSection.style.display === 'none'){
+                searchSection.style.display = 'block';
+                showBtn.textContent = 'Hide Filters';
+            } else {
+                searchSection.style.display = 'none';
+                showBtn.textContent = 'Find Teammates';
+            }
+        });
+
+        // Add event listeners
+        document.getElementById('searchBtn').addEventListener('click', searchTeammates);
+        document.getElementById('clearBtn').addEventListener('click', clearFilters);
+        document.getElementById('getLocationBtn').addEventListener('click', getCurrentLocation);
+
+        // Distance slider
+        document.getElementById('distanceFilter').addEventListener('input', function() {
+            document.getElementById('distanceValue').textContent = this.value;
+            searchTeammates();
+        });
+
+        // Auto-search on filter change
+        ['nameFilter', 'sportFilter', 'genderFilter', 'skillFilter', 'ageFilter'].forEach(function(id){
+            document.getElementById(id).addEventListener('change', searchTeammates);
+        });
+        document.getElementById('locationFilter').addEventListener('input', searchTeammates);
+    })();
+
+    // Social Clubs functionality
+    (function(){
+        var sampleClubs = [
+            {
+                id: 1,
+                name: "Mumbai Football United",
+                sport: "Football",
+                icon: "⚽",
+                location: "Mumbai",
+                type: "Competitive",
+                members: 45,
+                description: "Professional football club for serious players. Weekly training sessions and monthly tournaments.",
+                createdBy: "Alex Johnson",
+                createdDate: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+                isJoined: false
+            },
+            {
+                id: 2,
+                name: "Delhi Tennis Social",
+                sport: "Tennis",
+                icon: "🎾",
+                location: "Delhi",
+                type: "Social",
+                members: 28,
+                description: "Casual tennis group for all skill levels. Fun matches and social events.",
+                createdBy: "Sarah Wilson",
+                createdDate: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000),
+                isJoined: true
+            },
+            {
+                id: 3,
+                name: "Bangalore Basketball Academy",
+                sport: "Basketball",
+                icon: "🏀",
+                location: "Bangalore",
+                type: "Training",
+                members: 32,
+                description: "Learn and improve your basketball skills with professional coaching.",
+                createdBy: "Mike Chen",
+                createdDate: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+                isJoined: false
+            },
+            {
+                id: 4,
+                name: "Chennai Cricket Club",
+                sport: "Cricket",
+                icon: "🏏",
+                location: "Chennai",
+                type: "Competitive",
+                members: 38,
+                description: "Elite cricket club with regular practice sessions and league participation.",
+                createdBy: "Priya Sharma",
+                createdDate: new Date(Date.now() - 45 * 24 * 60 * 60 * 1000),
+                isJoined: false
+            },
+            {
+                id: 5,
+                name: "Pune Running Group",
+                sport: "Running",
+                icon: "🏃",
+                location: "Pune",
+                type: "Casual",
+                members: 52,
+                description: "Morning and evening running groups for fitness enthusiasts.",
+                createdBy: "David Brown",
+                createdDate: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000),
+                isJoined: true
+            },
+            {
+                id: 6,
+                name: "Kolkata Badminton Masters",
+                sport: "Badminton",
+                icon: "🏸",
+                location: "Kolkata",
+                type: "Competitive",
+                members: 24,
+                description: "Elite badminton training with professional coaches and regular tournaments.",
+                createdBy: "Raj Patel",
+                createdDate: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000),
+                isJoined: false
+            },
+            {
+                id: 7,
+                name: "Ahmedabad Volleyball Squad",
+                sport: "Volleyball",
+                icon: "🏐",
+                location: "Ahmedabad",
+                type: "Social",
+                members: 36,
+                description: "Fun volleyball sessions for all ages. Beach and indoor games available.",
+                createdBy: "Lisa Wang",
+                createdDate: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
+                isJoined: false
+            },
+            {
+                id: 8,
+                name: "Hyderabad Swimming Club",
+                sport: "Swimming",
+                icon: "🏊",
+                location: "Hyderabad",
+                type: "Training",
+                members: 41,
+                description: "Professional swimming coaching for beginners to advanced swimmers.",
+                createdBy: "Emma Davis",
+                createdDate: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000),
+                isJoined: true
+            },
+            {
+                id: 9,
+                name: "Jaipur Cycling Club",
+                sport: "Cycling",
+                icon: "🚴",
+                location: "Jaipur",
+                type: "Casual",
+                members: 67,
+                description: "Weekend cycling tours and city rides. All skill levels welcome.",
+                createdBy: "David Kim",
+                createdDate: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000),
+                isJoined: false
+            },
+            {
+                id: 10,
+                name: "Goa Beach Sports",
+                sport: "Beach Volleyball",
+                icon: "🏖️",
+                location: "Goa",
+                type: "Social",
+                members: 29,
+                description: "Beach volleyball and other beach sports. Perfect for vacation fitness.",
+                createdBy: "Maria Santos",
+                createdDate: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+                isJoined: false
+            }
+        ];
+
+        function renderClubs(clubs) {
+            var container = document.getElementById('clubsContainer');
+            if (!clubs || clubs.length === 0) {
+                container.innerHTML = '<div style="text-align:center;color:var(--muted);padding:40px;grid-column:1/-1">No clubs found matching your criteria.</div>';
+                return;
+            }
+
+            container.innerHTML = clubs.map(function(club) {
+                var daysAgo = Math.floor((Date.now() - club.createdDate) / (1000 * 60 * 60 * 24));
+                return '<div class="card" style="transition:transform .2s ease">' +
+                    '<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">' +
+                        '<div style="width:50px;height:50px;border-radius:50%;background:var(--brand);display:grid;place-items:center;color:#0b0d10;font-weight:700;font-size:1.5rem">' +
+                            club.icon +
+                        '</div>' +
+                        '<div style="flex:1">' +
+                            '<div style="font-weight:600;margin-bottom:2px">' + club.name + '</div>' +
+                            '<div style="color:var(--muted);font-size:.9rem">' + club.sport + ' • ' + club.location + '</div>' +
+                        '</div>' +
+                        '<div style="text-align:right">' +
+                            '<div style="font-weight:600;color:var(--accent)">' + club.members + '</div>' +
+                            '<div style="color:var(--muted);font-size:.8rem">members</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div style="color:var(--muted);font-size:.9rem;margin-bottom:12px">' +
+                        '<div><strong>Type:</strong> ' + club.type + '</div>' +
+                        '<div><strong>Created:</strong> ' + daysAgo + ' days ago by ' + club.createdBy + '</div>' +
+                    '</div>' +
+                    '<div style="color:var(--muted);font-size:.85rem;margin-bottom:12px;line-height:1.4">' + club.description + '</div>' +
+                    '<div style="display:flex;gap:8px;align-items:center;justify-content:space-between">' +
+                        '<div style="display:inline-block;background:var(--brand-solid);color:#0b0d10;padding:2px 8px;border-radius:12px;font-size:.8rem">' + club.type + '</div>' +
+                        '<button class="btn ' + (club.isJoined ? 'ghost' : 'primary') + ' small" data-club-id="' + club.id + '" style="padding:4px 8px;font-size:.75rem">' +
+                            (club.isJoined ? 'Leave' : 'Join') +
+                        '</button>' +
+                    '</div>' +
+                '</div>';
+            }).join('');
+        }
+
+        function searchClubs() {
+            var sport = document.getElementById('clubSportFilter').value.toLowerCase();
+            var location = document.getElementById('clubLocationFilter').value.toLowerCase();
+            var type = document.getElementById('clubTypeFilter').value.toLowerCase();
+
+            var filtered = sampleClubs.filter(function(club) {
+                var matchesSport = !sport || club.sport.toLowerCase().includes(sport);
+                var matchesLocation = !location || club.location.toLowerCase().includes(location);
+                var matchesType = !type || club.type.toLowerCase() === type;
+
+                return matchesSport && matchesLocation && matchesType;
+            });
+
+            renderClubs(filtered);
+        }
+
+        function showCreateModal() {
+            const modal = document.getElementById('createClubModal');
+            modal.style.display = 'flex';
+            // Add animation class
+            modal.style.opacity = '0';
+            setTimeout(() => {
+                modal.style.opacity = '1';
+                modal.style.transition = 'opacity 0.3s ease';
+            }, 10);
+        }
+
+        function hideCreateModal() {
+            const modal = document.getElementById('createClubModal');
+            modal.style.opacity = '0';
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.getElementById('createClubForm').reset();
+            }, 300);
+        }
+
+        // Initialize close button functionality
+        document.getElementById('closeModalBtn').addEventListener('click', function() {
+            hideCreateModal();
+        });
+
+        function createClub(event) {
+            event.preventDefault();
+            const name = document.getElementById('clubName').value;
+            const sport = document.getElementById('clubSport').value;
+            const location = document.getElementById('clubLocation').value;
+            const type = document.getElementById('clubType').value;
+            const description = document.getElementById('clubDescription').value;
+
+            // Validate inputs
+            if (!name || !sport || !location || !type || !description) {
+                alert('Please fill in all fields');
+                return false;
+            }
+
+            var newClub = {
+                id: sampleClubs.length + 1,
+                name: name,
+                sport: sport,
+                location: location,
+                type: type,
+                members: 1,
+                description: description,
+                createdBy: "You",
+                createdDate: new Date(),
+                isJoined: true
+            };
+
+            sampleClubs.unshift(newClub);
+            renderClubs(sampleClubs);
+            hideCreateModal();
+            alert('Club created successfully!');
+        }
+
+        function toggleJoinClub(clubId) {
+            var club = sampleClubs.find(function(c) { return c.id == clubId; });
+            if (club) {
+                club.isJoined = !club.isJoined;
+                club.members += club.isJoined ? 1 : -1;
+                renderClubs(sampleClubs);
+            }
+        }
+
+        // Show all clubs by default
+        renderClubs(sampleClubs);
+
+        // Event listeners
+        document.getElementById('createClubBtn').addEventListener('click', showCreateModal);
+        document.getElementById('showClubsBtn').addEventListener('click', function() {
+            var clubsSection = document.getElementById('clubsSection');
+            var showBtn = document.getElementById('showClubsBtn');
+            if (clubsSection.style.display === 'none') {
+                clubsSection.style.display = 'block';
+                showBtn.textContent = 'Hide Clubs';
+            } else {
+                clubsSection.style.display = 'none';
+                showBtn.textContent = 'Browse Clubs';
+            }
+        });
+
+        document.getElementById('cancelClubBtn').addEventListener('click', hideCreateModal);
+        document.getElementById('createClubForm').addEventListener('submit', createClub);
+
+        // Close modal on outside click
+        document.getElementById('createClubModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                hideCreateModal();
+            }
+        });
+
+        // Auto-search on filter change
+        ['clubSportFilter', 'clubTypeFilter'].forEach(function(id) {
+            document.getElementById(id).addEventListener('change', searchClubs);
+        });
+        document.getElementById('clubLocationFilter').addEventListener('input', searchClubs);
+
+        // Join/Leave club functionality
+        document.addEventListener('click', function(e) {
+            if (e.target.matches('button[data-club-id]')) {
+                toggleJoinClub(e.target.getAttribute('data-club-id'));
+            }
+        });
+    })();
+
+
+    // Theme Toggle Functionality
+    (function() {
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const themeMenu = document.getElementById('themeMenu');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeName = document.getElementById('themeName');
+        const root = document.documentElement;
+        
+        // Make sure theme menu is a sibling of the button
+        themeToggleBtn.insertAdjacentElement('afterend', themeMenu);
+        
+        const themeIcons = {
+            'system': '💻',
+            'light': '☀️',
+            'dark': '🌙'
+        };
+        
+        // Load saved theme or default to system
+        const savedTheme = localStorage.getItem('theme') || 'system';
+        
+        function applyTheme(theme, isSystem = false) {
+            // First remove existing theme
+            document.body.removeAttribute('data-theme');
+            document.documentElement.removeAttribute('data-theme');
+            
+            let actualTheme = theme;
+            if (theme === 'system' || isSystem) {
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                actualTheme = prefersDark ? 'dark' : 'light';
+                if (!isSystem) {
+                    localStorage.setItem('theme', 'system');
+                }
+            } else {
+                localStorage.setItem('theme', theme);
+            }
+            
+            // Apply the theme to both html and body elements
+            document.documentElement.setAttribute('data-theme', actualTheme);
+            document.body.setAttribute('data-theme', actualTheme);
+            
+            // Force a repaint to ensure theme is applied
+            document.body.style.display = 'none';
+            document.body.offsetHeight; // trigger reflow
+            document.body.style.display = '';
+            
+            // Update button appearance
+            themeIcon.textContent = themeIcons[theme];
+            themeName.textContent = theme;
+            
+            // Update active state in menu
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.classList.toggle('active', option.dataset.theme === theme);
+            });
+        }
+        
+        // Initial theme application
+        applyTheme(savedTheme);
+        
+        // Toggle menu
+        themeToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (themeMenu.style.display === 'none') {
+                themeMenu.style.display = 'block';
+            } else {
+                themeMenu.style.display = 'none';
+            }
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', () => {
+            themeMenu.style.display = 'none';
+        });
+        
+        // Prevent menu from closing when clicking inside it
+        themeMenu.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+        
+        // Theme option clicks
+        document.querySelectorAll('.theme-option').forEach(option => {
+            option.addEventListener('click', () => {
+                const theme = option.dataset.theme;
+                applyTheme(theme);
+                themeMenu.classList.remove('show');
+            });
+        });
+        
+        // System theme change listener
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+            if (localStorage.getItem('theme') === 'system') {
+                applyTheme('system', true);
+            }
+        });
+    })();
+    </script>
+    
+</body>
+</html>
+
+

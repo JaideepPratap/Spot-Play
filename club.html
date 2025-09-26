@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SpotnPlay - Join Our Club</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+    .link-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    @media (max-width: 720px){.link-grid{grid-template-columns:1fr}}
+    .soc-card{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px}
+    .soc-card .icon{width:36px;height:36px;border-radius:8px;background:var(--brand)}
+    .soc-card a{color:#a0e9ff;text-decoration:underline}
+    </style>
+</head>
+<body>
+    <header class="site-header" id="top">
+        <div class="container header-inner">
+            <a href="index.html" class="logo" aria-label="SpotnPlay Home">
+                <span class="logo-mark" aria-hidden="true">S</span>
+                <span class="logo-text">SpotnPlay</span>
+            </a>
+            <nav class="nav" aria-label="Primary">
+                <a class="btn" href="index.html">Home</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="section">
+        <div class="container" style="max-width:880px">
+            <h1>Join Our Club</h1>
+            <p class="sub" style="color:var(--muted)">Connect with SpotnPlay across platforms.</p>
+            <div class="link-grid">
+                <div class="soc-card">
+                    <div class="icon"></div>
+                    <div>
+                        <div><strong>WhatsApp Group</strong></div>
+                        <a href="https://chat.whatsapp.com/invite/spotnplay-demo" target="_blank" rel="noopener">Join on WhatsApp</a>
+                    </div>
+                </div>
+                <div class="soc-card">
+                    <div class="icon"></div>
+                    <div>
+                        <div><strong>Instagram</strong></div>
+                        <a href="https://instagram.com/spotnplay" target="_blank" rel="noopener">@spotnplay</a>
+                    </div>
+                </div>
+                <div class="soc-card">
+                    <div class="icon"></div>
+                    <div>
+                        <div><strong>Threads</strong></div>
+                        <a href="https://www.threads.net/@spotnplay" target="_blank" rel="noopener">threads.net/@spotnplay</a>
+                    </div>
+                </div>
+                <div class="soc-card">
+                    <div class="icon"></div>
+                    <div>
+                        <div><strong>Facebook Page</strong></div>
+                        <a href="https://facebook.com/spotnplay" target="_blank" rel="noopener">facebook.com/spotnplay</a>
+                    </div>
+                </div>
+                <div class="soc-card">
+                    <div class="icon"></div>
+                    <div>
+                        <div><strong>X (Twitter)</strong></div>
+                        <a href="https://x.com/spotnplay" target="_blank" rel="noopener">x.com/spotnplay</a>
+                    </div>
+                </div>
+                <div class="soc-card">
+                    <div class="icon"></div>
+                    <div>
+                        <div><strong>LinkedIn</strong></div>
+                        <a href="https://linkedin.com/company/spotnplay" target="_blank" rel="noopener">linkedin.com/company/spotnplay</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="assets/js/auth.js"></script>
+</body>
+</html>
+
+

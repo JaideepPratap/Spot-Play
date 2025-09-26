@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SpotnPlay - About Our Team</title>
+    <meta name="description" content="Meet the passionate team behind SpotnPlay - revolutionizing sports and fitness with technology.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="assets/js/theme.js" defer></script>
+    <style>
+    .hero-video {
+        position: relative;
+        height: 400px;
+        background: linear-gradient(135deg, var(--brand), rgba(0,0,0,0.7));
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 40px;
+        overflow: hidden;
+    }
+    .video-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .play-button {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        color: var(--brand-solid);
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+    .play-button:hover {
+        transform: scale(1.1);
+    }
+    .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 24px;
+        margin-bottom: 40px;
+    }
+    .team-member {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 24px;
+        text-align: center;
+        transition: transform 0.2s ease;
+    }
+    .team-member:hover {
+        transform: translateY(-3px);
+    }
+    .member-photo {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        margin: 0 auto 16px;
+        background: var(--brand);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 48px;
+        color: #0b0d10;
+        font-weight: 700;
+    }
+    .member-photo img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    .member-name {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+        color: var(--text);
+    }
+    .member-role {
+        color: var(--accent);
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+    .member-bio {
+        color: var(--muted);
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-bottom: 16px;
+    }
+    .member-social {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+    }
+    .social-link {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--panel);
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--muted);
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+    .social-link:hover {
+        background: var(--brand);
+        color: #0b0d10;
+        transform: translateY(-2px);
+    }
+    .stats-section {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 32px;
+        margin-bottom: 40px;
+    }
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 24px;
+    }
+    .stat-item {
+        text-align: center;
+    }
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--accent);
+        margin-bottom: 8px;
+    }
+    .stat-label {
+        color: var(--muted);
+        font-size: 0.9rem;
+    }
+    .mission-section {
+        background: linear-gradient(135deg, var(--card), rgba(124, 58, 237, 0.1));
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 32px;
+        margin-bottom: 40px;
+    }
+    .mission-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+        align-items: center;
+    }
+    .mission-text h3 {
+        margin: 0 0 16px;
+        color: var(--text);
+    }
+    .mission-text p {
+        color: var(--muted);
+        line-height: 1.6;
+        margin-bottom: 16px;
+    }
+    .mission-visual {
+        text-align: center;
+    }
+    .mission-icon {
+        font-size: 4rem;
+        margin-bottom: 16px;
+    }
+    .theme-toggle-container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .theme-toggle {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 25px;
+        padding: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .theme-option {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: transparent;
+        color: var(--muted);
+        font-size: 14px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    .theme-option.active {
+        background: var(--brand);
+        color: #0b0d10;
+        font-weight: 600;
+    }
+    .theme-label {
+        font-size: 0.9rem;
+        color: var(--muted);
+        font-weight: 500;
+    }
+    @media (max-width: 768px) {
+        .mission-content {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+        .team-grid {
+            grid-template-columns: 1fr;
+        }
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    </style>
+</head>
+<body>
+    <header class="site-header" id="top">
+        <div class="container header-inner">
+            <a href="index.html" class="logo" aria-label="SpotnPlay Home">
+                <span class="logo-mark" aria-hidden="true">S</span>
+                <span class="logo-text">SpotnPlay</span>
+            </a>
+            <nav class="nav" aria-label="Primary">
+                <a href="index.html" class="btn ghost">Home</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="section">
+        <div class="container">
+            <div class="section-head" style="text-align:center;margin-bottom:40px">
+                <h1>About Our Team</h1>
+                <p class="sub">Meet the passionate individuals revolutionizing sports and fitness with cutting-edge technology</p>
+            </div>
+
+            <!-- Intro Video -->
+            <div class="hero-video">
+                <div class="video-overlay">
+                    <div class="play-button" onclick="alert('Video player coming soon!')">
+                        ▶️
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mission Statement -->
+            <div class="mission-section">
+                <div class="mission-content">
+                    <div class="mission-text">
+                        <h3>Our Mission</h3>
+                        <p>We believe that sports and fitness should be accessible, engaging, and data-driven for everyone. Our team is dedicated to creating innovative solutions that combine machine learning, computer vision, and user-friendly design to help athletes of all levels reach their full potential.</p>
+                        <p>From professional athletes to weekend warriors, we're building the future of sports technology that makes training smarter, more effective, and more enjoyable.</p>
+                    </div>
+                    <div class="mission-visual">
+                        <div class="mission-icon">🚀</div>
+                        <h4>Innovation in Sports</h4>
+                        <p style="color:var(--muted)">Pushing the boundaries of what's possible</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Stats -->
+            <div class="stats-section">
+                <h3 style="text-align:center;margin-bottom:24px">Our Impact</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">50K+</div>
+                        <div class="stat-label">Active Users</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">25+</div>
+                        <div class="stat-label">Countries</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100K+</div>
+                        <div class="stat-label">Workouts Completed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">4.8</div>
+                        <div class="stat-label">User Rating</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Members -->
+            <h2 style="text-align:center;margin-bottom:32px">Meet Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-photo">JR</div>
+                    <div class="member-name">Jaideep Rajput</div>
+                    <div class="member-role">CEO & Founder</div>
+                    <div class="member-bio">LPU graduate with a passion for sports technology and innovation in fitness analytics.</div>
+                    <div class="member-social">
+                        <a href="#" class="social-link" title="LinkedIn">💼</a>
+                        <a href="#" class="social-link" title="Email">📧</a>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-photo">RV</div>
+                    <div class="member-name">Rakhi Verma</div>
+                    <div class="member-role">CTO</div>
+                    <div class="member-bio">LPU Computer Science graduate specializing in machine learning and sports biomechanics.</div>
+                    <div class="member-social">
+                        <a href="#" class="social-link" title="LinkedIn">💼</a>
+                        <a href="#" class="social-link" title="Email">📧</a>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-photo">RK</div>
+                    <div class="member-name">Ram Kumar</div>
+                    <div class="member-role">Head of Sports Science</div>
+                    <div class="member-bio">LPU Sports Science graduate with expertise in performance analytics and training optimization.</div>
+                    <div class="member-social">
+                        <a href="#" class="social-link" title="LinkedIn">💼</a>
+                        <a href="#" class="social-link" title="Email">📧</a>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-photo">RS</div>
+                    <div class="member-name">Rishav Sharma</div>
+                    <div class="member-role">Product Manager</div>
+                    <div class="member-bio">LPU Design graduate focused on creating intuitive digital experiences for sports enthusiasts.</div>
+                    <div class="member-social">
+                        <a href="#" class="social-link" title="LinkedIn">💼</a>
+                        <a href="#" class="social-link" title="Email">📧</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Values Section -->
+            <div class="mission-section" style="margin-top:40px">
+                <h3 style="text-align:center;margin-bottom:24px">Our Values</h3>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px">
+                    <div style="text-align:center">
+                        <div style="font-size:2rem;margin-bottom:12px">🎯</div>
+                        <h4>Innovation</h4>
+                        <p style="color:var(--muted)">We constantly push the boundaries of what's possible in sports technology</p>
+                    </div>
+                    <div style="text-align:center">
+                        <div style="font-size:2rem;margin-bottom:12px">🤝</div>
+                        <h4>Community</h4>
+                        <p style="color:var(--muted)">Building connections and fostering a supportive fitness community</p>
+                    </div>
+                    <div style="text-align:center">
+                        <div style="font-size:2rem;margin-bottom:12px">📊</div>
+                        <h4>Data-Driven</h4>
+                        <p style="color:var(--muted)">Using science and analytics to optimize performance and results</p>
+                    </div>
+                    <div style="text-align:center">
+                        <div style="font-size:2rem;margin-bottom:12px">🌍</div>
+                        <h4>Accessibility</h4>
+                        <p style="color:var(--muted)">Making fitness and sports accessible to everyone, everywhere</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container legal">
+            <p>© 2025 SpotnPlay. All rights reserved.</p>
+            <a href="index.html">Back to Home</a>
+        </div>
+    </footer>
+
+    <!-- theme.js handles theme based on user's preference set on other pages -->
+</body>
+</html>
