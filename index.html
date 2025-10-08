@@ -26,9 +26,9 @@
                     <li><a href="#experience">Experience</a></li>
                     <li><a href="#testimonials">Testimonials</a></li>
                     <li><a href="#contact">Contact</a></li>
-                    <li><a href="registration.html">Registration</a></li>
-                    <li id="nav-auth"></li>
-                    <li><a href="signup.html">Sign up</a></li>
+                    <li id="nav-auth" style="position: relative;">
+                        <!-- Auth dropdown will be populated by JavaScript -->
+                    </li>
                     <li style="position: relative;">
                         <label class="theme-switch">
                             <input type="checkbox" id="themeToggle">
@@ -376,7 +376,7 @@
         <div class="container">
             <!-- FitBlog/FitVlogs Heading -->
             <div style="text-align: center; margin-bottom: 32px;">
-                <h1 style="font-size: 3em; font-weight: 800; background: var(--brand); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 16px;">
+                <h1 style="font-size: 3em; font-weight: 800; background: var(--brand); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: transparent; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 16px;">
                     💪 FitBlog & FitVlogs ❤️
                 </h1>
                 <p style="color: var(--muted); font-size: 1.2em; display: flex; align-items: center; justify-content: center; gap: 8px;">
@@ -920,18 +920,82 @@
         var slot = document.getElementById('nav-auth');
         if(!slot) return;
         var session = window.SpotnPlayAuth.getSession();
+        
         if(session){
-            slot.innerHTML = '<a href="profile.html">My Profile</a>';
-            var li = document.createElement('li');
-            var a = document.createElement('a'); a.href = '#'; a.textContent = 'Logout';
-            a.addEventListener('click', function(e){ e.preventDefault(); window.SpotnPlayAuth.signOut(); window.location.reload(); });
-            li.appendChild(a);
-            slot.parentNode.appendChild(li);
+            // User is logged in - show profile dropdown
+            slot.innerHTML = `
+                <button class="auth-dropdown-btn" id="authDropdownBtn" aria-expanded="false" aria-haspopup="true">
+                    <span class="auth-avatar">👤</span>
+                    <span class="auth-text">Account</span>
+                    <span class="dropdown-arrow">▼</span>
+                </button>
+                <div class="auth-dropdown" id="authDropdown" style="display: none;">
+                    <a href="profile.html" class="dropdown-item">
+                        <span class="dropdown-icon">👤</span>
+                        My Profile
+                    </a>
+                    <a href="registration.html" class="dropdown-item">
+                        <span class="dropdown-icon">📝</span>
+                        Registration
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item logout-item" id="logoutLink">
+                        <span class="dropdown-icon">🚪</span>
+                        Logout
+                    </a>
+                </div>
+            `;
+            
+            // Add logout functionality
+            document.getElementById('logoutLink').addEventListener('click', function(e){
+                e.preventDefault();
+                window.SpotnPlayAuth.signOut();
+                window.location.reload();
+            });
         } else {
-            slot.innerHTML = '<a href="login.html">Login</a>';
-            var li2 = document.createElement('li');
-            var a2 = document.createElement('a'); a2.href = 'signup.html'; a2.textContent = 'Sign up'; li2.appendChild(a2);
-            slot.parentNode.appendChild(li2);
+            // User is not logged in - show auth dropdown
+            slot.innerHTML = `
+                <button class="auth-dropdown-btn" id="authDropdownBtn" aria-expanded="false" aria-haspopup="true">
+                    <span class="auth-text">Account</span>
+                    <span class="dropdown-arrow">▼</span>
+                </button>
+                <div class="auth-dropdown" id="authDropdown" style="display: none;">
+                    <a href="login.html" class="dropdown-item">
+                        <span class="dropdown-icon">🔑</span>
+                        Login
+                    </a>
+                    <a href="signup.html" class="dropdown-item">
+                        <span class="dropdown-icon">📝</span>
+                        Sign Up
+                    </a>
+                    <a href="registration.html" class="dropdown-item">
+                        <span class="dropdown-icon">📋</span>
+                        Registration
+                    </a>
+                </div>
+            `;
+        }
+        
+        // Add dropdown toggle functionality
+        var dropdownBtn = document.getElementById('authDropdownBtn');
+        var dropdown = document.getElementById('authDropdown');
+        
+        if(dropdownBtn && dropdown) {
+            dropdownBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var isOpen = dropdown.style.display !== 'none';
+                dropdown.style.display = isOpen ? 'none' : 'block';
+                dropdownBtn.setAttribute('aria-expanded', !isOpen);
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!slot.contains(e.target)) {
+                    dropdown.style.display = 'none';
+                    dropdownBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
         }
     })();
 
